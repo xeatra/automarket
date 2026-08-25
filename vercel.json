@@ -1,1 +1,5 @@
-
+{
+  "rewrites": [
+    { "source": "/", "destination": "/romania_car_sales_dashboard_v8.html" }
+  ]
+}
