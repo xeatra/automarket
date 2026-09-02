@@ -319,8 +319,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 
 
 <div class="hdr">
-  <h1>Romania New Car Registrations</h1>
-  <div class="sub">Top 35 brands · 2023 · 2024 · 2025 · Jan–Jul 2026 vs 2025 </div>
+  <h1>Romania New Car Registrations — </h1>
+  <div class="sub">Top 35 brands · 2023 · 2024 · 2025 · Jan–Aug 2026 vs 2025 · </div>
 </div>
 
 <div class="ctrl">
@@ -330,7 +330,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <button class="pill" data-year="2023">2023</button>
       <button class="pill" data-year="2024">2024</button>
       <button class="pill active" data-year="2025">2025</button>
-      <button class="pill" data-year="2026">Jan–Jul 2026 vs 2025</button>
+      <button class="pill" data-year="2026">Jan–Aug 2026 vs 2025</button>
     </div>
   </div>
   <div class="cg">
@@ -446,7 +446,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
     <div class="dp-krow" id="dpKrow"></div>
     <div class="tabs">
       <button class="tab active" data-tab="evo">Year-by-year evolution</button>
-      <button class="tab" data-tab="comp">Jan–Jul 2026 vs 2025</button>
+      <button class="tab" data-tab="comp">Jan–Aug 2026 vs 2025</button>
       <button class="tab" data-tab="rivals">Direct competitors</button>
     </div>
     <div class="tabpanel active" id="tab-evo">
@@ -576,70 +576,71 @@ const RAW = {
     {b:'LAMBORGHINI',u:55,cat:'Ultra-Luxury'},{b:'FERRARI',u:31,cat:'Ultra-Luxury'},{b:'ROLLS-ROYCE',u:33,cat:'Ultra-Luxury'},
     {b:'LYNK&CO',u:103,cat:'Premium'},{b:'ASTON MARTIN',u:21,cat:'Ultra-Luxury'},
   ]},
-  2026:{total:75836,brands:[
-    {b:'DACIA',u:14972,cat:'Mainstream'},
-    {b:'TOYOTA',u:7259,cat:'Mainstream'},
-    {b:'SKODA',u:6276,cat:'Mainstream'},
-    {b:'VOLKSWAGEN',u:5731,cat:'Mainstream'},
-    {b:'RENAULT',u:3546,cat:'Mainstream'},
-    {b:'HYUNDAI',u:3109,cat:'Mainstream'},
-    {b:'MERCEDES-BENZ',u:2844,cat:'Luxury'},
-    {b:'BYD',u:2812,cat:'Mainstream'},
-    {b:'FORD',u:2804,cat:'Mainstream'},
-    {b:'BMW',u:2678,cat:'Luxury'},
-    {b:'CHERY',u:2352,cat:'Mainstream'},
-    {b:'MG',u:2023,cat:'Mainstream'},
-    {b:'AUDI',u:1995,cat:'Premium'},
-    {b:'SUZUKI',u:1876,cat:'Mainstream'},
-    {b:'KIA',u:1772,cat:'Mainstream'},
-    {b:'MAZDA',u:1750,cat:'Premium'},
-    {b:'TESLA',u:1559,cat:'Premium'},
-    {b:'PEUGEOT',u:1290,cat:'Mainstream'},
-    {b:'NISSAN',u:1157,cat:'Mainstream'},
-    {b:'KGM',u:976,cat:'Mainstream'},
-    {b:'VOLVO',u:847,cat:'Premium'},
-    {b:'CITROEN',u:792,cat:'Mainstream'},
-    {b:'CUPRA',u:767,cat:'Premium'},
-    {b:'GEELY',u:746,cat:'Mainstream'},
-    {b:'HONDA',u:539,cat:'Mainstream'},
-    {b:'OPEL',u:479,cat:'Mainstream'},
-    {b:'OMODA',u:352,cat:'Mainstream'},
-    {b:'LAND ROVER',u:329,cat:'Luxury'},
-    {b:'PORSCHE',u:277,cat:'Luxury'},
-    {b:'SEAT',u:263,cat:'Mainstream'},
-    {b:'JAECOO',u:263,cat:'Mainstream'},
-    {b:'LEXUS',u:228,cat:'Luxury'},
-    {b:'MINI',u:162,cat:'Premium'},
-    {b:'MITSUBISHI',u:135,cat:'Mainstream'},
-    {b:'FIAT',u:128,cat:'Mainstream'},
-    {b:'LEAPMOTOR',u:115,cat:'Mainstream'},
-    {b:'SUBARU',u:97,cat:'Premium'},
-    {b:'JEEP',u:97,cat:'Premium'},
-    {b:'LYNK&CO',u:65,cat:'Premium'},
-    {b:'ZEEKR',u:59,cat:'Premium'},
-    {b:'ALFA ROMEO',u:51,cat:'Premium'},
-    {b:'LAMBORGHINI',u:41,cat:'Ultra-Luxury'},
-    {b:'DFSK',u:37,cat:'Mainstream'},
+  2026:{total:85306,brands:[
+    {b:'DACIA',u:17114,cat:'Mainstream'},
+    {b:'TOYOTA',u:8488,cat:'Mainstream'},
+    {b:'SKODA',u:7121,cat:'Mainstream'},
+    {b:'VOLKSWAGEN',u:6431,cat:'Mainstream'},
+    {b:'RENAULT',u:3919,cat:'Mainstream'},
+    {b:'BYD',u:3465,cat:'Mainstream'},
+    {b:'HYUNDAI',u:3396,cat:'Mainstream'},
+    {b:'MERCEDES-BENZ',u:3238,cat:'Luxury'},
+    {b:'FORD',u:3125,cat:'Mainstream'},
+    {b:'BMW',u:3106,cat:'Luxury'},
+    {b:'CHERY',u:2577,cat:'Mainstream'},
+    {b:'MG',u:2368,cat:'Mainstream'},
+    {b:'AUDI',u:2165,cat:'Premium'},
+    {b:'SUZUKI',u:2101,cat:'Mainstream'},
+    {b:'KIA',u:1860,cat:'Mainstream'},
+    {b:'MAZDA',u:1836,cat:'Premium'},
+    {b:'TESLA',u:1564,cat:'Premium'},
+    {b:'PEUGEOT',u:1320,cat:'Mainstream'},
+    {b:'NISSAN',u:1160,cat:'Mainstream'},
+    {b:'KGM',u:1010,cat:'Mainstream'},
+    {b:'VOLVO',u:933,cat:'Premium'},
+    {b:'CUPRA',u:870,cat:'Premium'},
+    {b:'GEELY',u:863,cat:'Mainstream'},
+    {b:'CITROEN',u:838,cat:'Mainstream'},
+    {b:'HONDA',u:586,cat:'Mainstream'},
+    {b:'OPEL',u:489,cat:'Mainstream'},
+    {b:'OMODA',u:426,cat:'Mainstream'},
+    {b:'LAND ROVER',u:351,cat:'Luxury'},
+    {b:'PORSCHE',u:318,cat:'Luxury'},
+    {b:'JAECOO',u:310,cat:'Mainstream'},
+    {b:'SEAT',u:299,cat:'Mainstream'},
+    {b:'LEXUS',u:258,cat:'Luxury'},
+    {b:'MINI',u:188,cat:'Premium'},
+    {b:'MITSUBISHI',u:162,cat:'Mainstream'},
+    {b:'FIAT',u:160,cat:'Mainstream'},
+    {b:'LEAPMOTOR',u:129,cat:'Mainstream'},
+    {b:'JEEP',u:129,cat:'Premium'},
+    {b:'SUBARU',u:107,cat:'Premium'},
+    {b:'LYNK&CO',u:77,cat:'Premium'},
+    {b:'ZEEKR',u:70,cat:'Premium'},
+    {b:'ALFA ROMEO',u:67,cat:'Premium'},
+    {b:'DFSK',u:50,cat:'Mainstream'},
+    {b:'LAMBORGHINI',u:47,cat:'Ultra-Luxury'},
     {b:'DS',u:36,cat:'Premium'},
+    {b:'FERRARI',u:31,cat:'Ultra-Luxury'},
     {b:'ROLLS-ROYCE',u:28,cat:'Ultra-Luxury'},
-    {b:'FERRARI',u:26,cat:'Ultra-Luxury'},
-    {b:'BENTLEY',u:20,cat:'Ultra-Luxury'},
-    {b:'BAIC',u:15,cat:'Mainstream'},
+    {b:'BENTLEY',u:25,cat:'Ultra-Luxury'},
+    {b:'XPENG',u:19,cat:'Premium'},
+    {b:'BAIC',u:18,cat:'Mainstream'},
     {b:'ASTON MARTIN',u:13,cat:'Ultra-Luxury'},
-    {b:'MASERATI',u:10,cat:'Luxury'},
-    {b:'XPENG',u:7,cat:'Premium'},
+    {b:'MASERATI',u:11,cat:'Luxury'},
+    {b:'SWM',u:7,cat:'Mainstream'},
     {b:'FORTHING',u:7,cat:'Mainstream'},
-    {b:'SWM',u:5,cat:'Mainstream'},
     {b:'CADILLAC',u:4,cat:'Luxury'},
     {b:'JAC',u:3,cat:'Mainstream'},
+    {b:'INEOS',u:2,cat:'Luxury'},
+    {b:'MCLAREN',u:2,cat:'Ultra-Luxury'},
     {b:'LOTUS',u:2,cat:'Luxury'},
     {b:'CHEVROLET',u:2,cat:'Mainstream'},
-    {b:'MCLAREN',u:2,cat:'Ultra-Luxury'},
-    {b:'INEOS',u:2,cat:'Luxury'},
-    {b:'JETOUR',u:1,cat:'Mainstream'},
-    {b:'AVANTIER',u:1,cat:'Premium'},
+    {b:'MORGAN',u:1,cat:'Luxury'},
     {b:'LUCID MOTORS',u:1,cat:'Premium'},
-    {b:'MORGAN',u:1,cat:'Luxury'}
+    {b:'AVANTIER',u:1,cat:'Premium'},
+    {b:'JETOUR',u:1,cat:'Mainstream'},
+    {b:'LEPAS',u:1,cat:'Mainstream'}
   ]}
 };
 
@@ -657,62 +658,62 @@ const JM25={total:53515,brands:[
   {b:'ASTON MARTIN',u:10},{b:'LYNK&CO',u:21},{b:'BYD',u:4},{b:'CHERY',u:0},
 ]};;
 
-const JUL25_YTD={total:80190,brands:[
-  {b:'DACIA',u:22725},
-  {b:'TOYOTA',u:7564},
-  {b:'SKODA',u:6587},
-  {b:'VOLKSWAGEN',u:5647},
-  {b:'RENAULT',u:4719},
-  {b:'HYUNDAI',u:4546},
-  {b:'FORD',u:3381},
-  {b:'MERCEDES-BENZ',u:3092},
-  {b:'BMW',u:2989},
-  {b:'SUZUKI',u:2599},
-  {b:'KIA',u:1843},
-  {b:'AUDI',u:1635},
-  {b:'MG',u:1634},
-  {b:'KGM',u:1512},
-  {b:'PEUGEOT',u:1464},
-  {b:'MAZDA',u:1255},
-  {b:'VOLVO',u:791},
-  {b:'CITROEN',u:704},
-  {b:'CUPRA',u:626},
-  {b:'JEEP',u:541},
-  {b:'TESLA',u:423},
-  {b:'OPEL',u:390},
-  {b:'HONDA',u:373},
-  {b:'NISSAN',u:341},
-  {b:'PORSCHE',u:320},
-  {b:'LAND ROVER',u:318},
-  {b:'GEELY',u:296},
-  {b:'LEXUS',u:254},
-  {b:'SEAT',u:227},
-  {b:'MINI',u:216},
-  {b:'FIAT',u:207},
-  {b:'MITSUBISHI',u:182},
-  {b:'LEAPMOTOR',u:146},
-  {b:'ALFA ROMEO',u:112},
+const JUL25_YTD={total:95184,brands:[
+  {b:'DACIA',u:26878},
+  {b:'TOYOTA',u:9198},
+  {b:'SKODA',u:7385},
+  {b:'VOLKSWAGEN',u:6387},
+  {b:'HYUNDAI',u:6124},
+  {b:'RENAULT',u:5737},
+  {b:'FORD',u:4116},
+  {b:'BMW',u:3554},
+  {b:'MERCEDES-BENZ',u:3503},
+  {b:'SUZUKI',u:3022},
+  {b:'KIA',u:2259},
+  {b:'MG',u:1947},
+  {b:'AUDI',u:1873},
+  {b:'KGM',u:1739},
+  {b:'PEUGEOT',u:1693},
+  {b:'MAZDA',u:1543},
+  {b:'VOLVO',u:910},
+  {b:'CITROEN',u:820},
+  {b:'CUPRA',u:733},
+  {b:'JEEP',u:571},
+  {b:'TESLA',u:544},
+  {b:'HONDA',u:500},
+  {b:'OPEL',u:496},
+  {b:'LAND ROVER',u:389},
+  {b:'PORSCHE',u:372},
+  {b:'GEELY',u:363},
+  {b:'NISSAN',u:356},
+  {b:'LEXUS',u:286},
+  {b:'FIAT',u:254},
+  {b:'SEAT',u:254},
+  {b:'MITSUBISHI',u:242},
+  {b:'MINI',u:236},
+  {b:'LEAPMOTOR',u:147},
+  {b:'ALFA ROMEO',u:134},
   {b:'DS',u:99},
-  {b:'SUBARU',u:70},
-  {b:'DFSK',u:66},
-  {b:'LYNK&CO',u:45},
-  {b:'BENTLEY',u:44},
-  {b:'LAMBORGHINI',u:36},
-  {b:'BAIC',u:29},
+  {b:'SUBARU',u:92},
+  {b:'DFSK',u:75},
+  {b:'LYNK&CO',u:49},
+  {b:'BENTLEY',u:47},
+  {b:'LAMBORGHINI',u:39},
+  {b:'BAIC',u:36},
+  {b:'BYD',u:33},
   {b:'FORTHING',u:25},
   {b:'INEOS',u:24},
   {b:'ROLLS-ROYCE',u:21},
-  {b:'FERRARI',u:17},
+  {b:'FERRARI',u:19},
   {b:'MASERATI',u:17},
   {b:'ASTON MARTIN',u:15},
+  {b:'CHERY',u:10},
   {b:'CADILLAC',u:6},
-  {b:'BYD',u:5},
   {b:'SWM',u:3},
   {b:'MCLAREN',u:3},
   {b:'LOTUS',u:2},
-  {b:'CHERY',u:1},
-  {b:'XPENG',u:1},
-  {b:'CHEVROLET',u:1}
+  {b:'CHEVROLET',u:1},
+  {b:'XPENG',u:1}
 ]};
 
 const MONTHLY26={
@@ -783,10 +784,11 @@ const MONTHLY26_JUL={total:11633,brands:[
   {b:'BENTLEY',u:3},{b:'ASTON MARTIN',u:3},{b:'MASERATI',u:2},{b:'FERRARI',u:2},
   {b:'CADILLAC',u:1},{b:'NISSAN',u:1},{b:'DS',u:1},
 ]};
+const MONTHLY26_AUG={total:9470,brands:[{b:'DACIA',u:2142},{b:'TOYOTA',u:1229},{b:'SKODA',u:845},{b:'VOLKSWAGEN',u:700},{b:'BYD',u:653},{b:'BMW',u:428},{b:'MERCEDES-BENZ',u:394},{b:'RENAULT',u:373},{b:'MG',u:345},{b:'FORD',u:321},{b:'HYUNDAI',u:287},{b:'CHERY',u:225},{b:'SUZUKI',u:225},{b:'AUDI',u:170},{b:'GEELY',u:117},{b:'CUPRA',u:103},{b:'KIA',u:88},{b:'MAZDA',u:86},{b:'VOLVO',u:86},{b:'OMODA',u:74},{b:'JAECOO',u:47},{b:'HONDA',u:47},{b:'CITROEN',u:46},{b:'PORSCHE',u:41},{b:'SEAT',u:36},{b:'KGM',u:34},{b:'FIAT',u:32},{b:'JEEP',u:32},{b:'LEXUS',u:30},{b:'PEUGEOT',u:30},{b:'MITSUBISHI',u:27},{b:'MINI',u:26},{b:'LAND ROVER',u:22},{b:'ALFA ROMEO',u:16},{b:'LEAPMOTOR',u:14},{b:'DFSK',u:13},{b:'LYNK&CO',u:12},{b:'XPENG',u:12},{b:'ZEEKR',u:11},{b:'OPEL',u:10},{b:'SUBARU',u:10},{b:'LAMBORGHINI',u:6},{b:'BENTLEY',u:5},{b:'TESLA',u:5},{b:'FERRARI',u:5},{b:'BAIC',u:3},{b:'NISSAN',u:3},{b:'SWM',u:2},{b:'LEPAS',u:1},{b:'MASERATI',u:1}]};
 const MONTHS26=[
   {mo:'Jan',data:MONTHLY26.Jan},{mo:'Feb',data:MONTHLY26.Feb},
   {mo:'Mar',data:MONTHLY26.Mar},{mo:'Apr',data:MONTHLY26.Apr},{mo:'May',data:MONTHLY26.May},
-  {mo:'Jun',data:MONTHLY26_JUN},{mo:'Jul',data:MONTHLY26_JUL}
+  {mo:'Jun',data:MONTHLY26_JUN},{mo:'Jul',data:MONTHLY26_JUL},{mo:'Aug',data:MONTHLY26_AUG}
 ];
 
 const CAT={
@@ -801,7 +803,7 @@ const PERIOD_META={
   2023:{total:142783,label:'2023',hasPrev:false,prevLabel:null},
   2024:{total:148596,label:'2024',hasPrev:true, prevLabel:'2023',prevTotal:142783,prevSrc:2023},
   2025:{total:155251,label:'2025',hasPrev:true, prevLabel:'2024',prevTotal:148596,prevSrc:2024},
-  2026:{total:75836, label:'Jan–Jul 2026',hasPrev:true,prevLabel:'Jan–Jul 2025',prevTotal:80190,prevSrc:'jul25'},
+  2026:{total:85306, label:'Jan–Aug 2026',hasPrev:true,prevLabel:'Jan–Aug 2025',prevTotal:95184,prevSrc:'jul25'},
 };
 
 function getU(year,brand){
@@ -1215,7 +1217,7 @@ const CUST_PERIODS = [
   {key:'2023', label:'2023',    mktTotal:142783, src:2023},
   {key:'2024', label:'2024',    mktTotal:148596, src:2024},
   {key:'2025', label:'2025',    mktTotal:155251, src:2025},
-  {key:'ytd',  label:'YTD 2026 (Jan–Jul)',mktTotal:75836,  src:2026},
+  {key:'ytd', label:'YTD 2026 (Jan–Aug)',mktTotal:85306, src:2026},
 ];
 
 let custState = {
