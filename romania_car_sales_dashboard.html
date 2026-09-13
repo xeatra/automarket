@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Romania Car Sales 2023–2026</title>
+<title>Romania Car Sales — 2023–2026</title>
 <style>
   :root {
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -319,8 +319,8 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 
 
 <div class="hdr">
-  <h1>Romania New Car Registrations — </h1>
-  <div class="sub">Top 35 brands · 2023 · 2024 · 2025 · Jan–Aug 2026 vs 2025 · </div>
+  <h1>Romania New Car Registrations </h1>
+  <div class="sub">Top 35 brands · 2023 · 2024 · 2025 · Jan–Aug 2026 vs 2025 </div>
 </div>
 
 <div class="ctrl">
@@ -448,6 +448,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <button class="tab active" data-tab="evo">Year-by-year evolution</button>
       <button class="tab" data-tab="comp">Jan–Aug 2026 vs 2025</button>
       <button class="tab" data-tab="rivals">Direct competitors</button>
+      <button class="tab" data-tab="trend24">24-Month Trend</button>
     </div>
     <div class="tabpanel active" id="tab-evo">
       <div class="dp-g2">
@@ -472,6 +473,30 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
     <div class="tabpanel" id="tab-rivals">
       <div class="ctitle" id="rivalsTitle">Direct competitors — 2025</div>
       <div class="comp-grid" id="compGrid"></div>
+    </div>
+    <div class="tabpanel" id="tab-trend24">
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2)">Brands shown</span>
+          <button id="t24SelectAll" class="cust-btn cust-btn-secondary" style="padding:3px 10px;font-size:11px">Select all</button>
+          <button id="t24ClearAll" class="cust-btn cust-btn-secondary" style="padding:3px 10px;font-size:11px">Clear all</button>
+          <span id="t24Count" style="font-size:11px;color:var(--text3)"></span>
+        </div>
+        <div id="t24Chips" style="display:flex;flex-wrap:wrap;gap:5px;max-height:120px;overflow-y:auto;padding:4px 0"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly units — last 24 months</div>
+          <div style="position:relative;height:280px"><canvas id="t24VolChart" role="img" aria-label="24 month volume trend"></canvas></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly market share % — last 24 months</div>
+          <div style="position:relative;height:280px"><canvas id="t24ShareChart" role="img" aria-label="24 month market share trend"></canvas></div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:var(--text3)">
+        Sep 2024 → Aug 2026 · Monthly  data · Market share = brand units ÷ total market that month
+      </div>
     </div>
   </div>
 
@@ -1152,6 +1177,10 @@ function openBrand(brand){
       ${MONTHS26.map(m=>{const mu=m.data.brands.find(d=>d.b===brand)?.u||0;return`<tr><td>${m.mo} 2026</td><td>—</td><td>${mu.toLocaleString()}</td><td>—</td></tr>`;}).join('')}
     </tbody>`;
 
+  // Reset trend24 state when opening a new brand
+  t24CurrentBrand = brand;
+  t24ActiveBrands = new Set(); // will be init'd when tab clicked
+
   // Competitors
   const rivals=getCompetitors(brand,5);
   document.getElementById('rivalsTitle').textContent=`Direct competitors (${cat}) — closest by 2025 volume`;
@@ -1178,6 +1207,16 @@ function openBrand(brand){
 function switchTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
   document.querySelectorAll('.tabpanel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
+  if(id==='trend24'){
+    setTimeout(()=>{
+      if(!t24CurrentBrand && state.selected) t24CurrentBrand=state.selected;
+      if(t24CurrentBrand){
+        // Only init if not already done for this brand
+        if(t24ActiveBrands.size===0) initTrend24(t24CurrentBrand);
+        else renderTrend24();
+      }
+    },30);
+  }
 }
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>switchTab(t.dataset.tab)));
 document.getElementById('dpClose').addEventListener('click',()=>{
@@ -2437,6 +2476,193 @@ document.querySelectorAll('.eu-tab').forEach(t=>{
     if(t.dataset.eutab==='chinese')  setTimeout(drawEuChineseCharts,80);
   });
 });
+
+
+// ── 24-MONTH TREND DATA ────────────────────────────────────────────────────────
+const MONTHLY_24 = {
+  labels: ["Sep 24", "Oct 24", "Nov 24", "Dec 24", "Jan 25", "Feb 25", "Mar 25", "Apr 25", "May 25", "Jun 25", "Jul 25", "Aug 25", "Sep 25", "Oct 25", "Nov 25", "Dec 25", "Jan 26", "Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26", "Jul 26", "Aug 26"],
+  keys: ["2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"],
+  totals: [8870, 11428, 10071, 13316, 11782, 11697, 9792, 9847, 10406, 10469, 16210, 15016, 12374, 12719, 13793, 21182, 7581, 8546, 9850, 9588, 11219, 16008, 11633, 9470],
+  brands: {
+    'DACIA': [2129, 2974, 2825, 4493, 4010, 3532, 2359, 2325, 2649, 2744, 5106, 4153, 4124, 3439, 4519, 6796, 1442, 1685, 1856, 1711, 2132, 2860, 3286, 2142],
+    'TOYOTA': [818, 1040, 888, 833, 944, 1005, 925, 997, 967, 969, 1757, 1634, 1047, 1332, 1137, 1704, 756, 894, 922, 1062, 1139, 1248, 1238, 1229],
+    'SKODA': [626, 1114, 778, 1156, 892, 878, 869, 842, 909, 938, 1259, 798, 896, 873, 997, 1148, 690, 865, 990, 775, 910, 1244, 802, 845],
+    'VOLKSWAGEN': [595, 769, 812, 882, 831, 842, 849, 642, 801, 721, 961, 740, 660, 760, 711, 1043, 646, 610, 922, 913, 811, 1037, 792, 700],
+    'RENAULT': [473, 639, 565, 1236, 704, 738, 525, 565, 631, 580, 976, 1018, 1139, 905, 1021, 2638, 254, 583, 454, 366, 389, 964, 536, 373],
+    'HYUNDAI': [846, 961, 801, 699, 677, 563, 557, 499, 576, 544, 1130, 1578, 690, 664, 752, 1122, 390, 386, 461, 396, 435, 745, 296, 287],
+    'FORD': [374, 507, 471, 448, 419, 535, 450, 423, 473, 421, 660, 735, 551, 664, 646, 812, 333, 359, 358, 353, 427, 588, 386, 321],
+    'MERCEDES-BENZ': [367, 444, 332, 461, 437, 404, 368, 468, 431, 467, 517, 411, 358, 430, 411, 361, 397, 358, 291, 445, 407, 386, 560, 394],
+    'BMW': [350, 449, 270, 406, 447, 438, 364, 488, 483, 368, 401, 565, 373, 420, 392, 491, 385, 381, 375, 394, 338, 454, 351, 428],
+    'SUZUKI': [222, 297, 288, 327, 354, 388, 358, 322, 318, 299, 560, 423, 143, 233, 256, 300, 250, 285, 243, 232, 262, 297, 307, 225],
+    'MG': [50, 203, 233, 250, 232, 212, 196, 208, 253, 226, 307, 313, 280, 340, 303, 526, 92, 149, 258, 322, 477, 459, 266, 345],
+    'KIA': [191, 387, 321, 445, 212, 196, 334, 318, 210, 194, 379, 416, 271, 240, 181, 243, 143, 130, 259, 201, 344, 581, 114, 88],
+    'AUDI': [241, 270, 221, 205, 220, 249, 176, 242, 187, 271, 290, 238, 248, 355, 370, 324, 232, 226, 246, 348, 371, 318, 254, 170],
+    'KGM': [144, 225, 181, 161, 221, 216, 211, 180, 233, 209, 242, 227, 180, 158, 188, 630, 59, 74, 67, 0, 93, 442, 160, 34],
+    'MAZDA': [54, 92, 150, 150, 151, 160, 193, 205, 182, 148, 216, 288, 119, 137, 190, 218, 121, 145, 202, 260, 310, 576, 136, 86],
+    'PEUGEOT': [333, 140, 164, 178, 75, 306, 214, 197, 97, 309, 266, 229, 158, 190, 163, 107, 215, 250, 112, 196, 250, 212, 55, 30],
+    'BYD': [1, 0, 0, 1, 1, 0, 2, 0, 1, 1, 0, 28, 112, 152, 198, 405, 312, 252, 279, 344, 459, 494, 672, 653],
+    'TESLA': [186, 164, 86, 201, 125, 56, 39, 70, 47, 25, 61, 121, 102, 259, 121, 89, 232, 192, 121, 107, 149, 658, 100, 5],
+    'CHERY': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9, 25, 41, 107, 281, 212, 318, 340, 356, 381, 404, 341, 225],
+    'VOLVO': [65, 101, 91, 134, 105, 112, 93, 88, 114, 165, 114, 119, 146, 152, 112, 157, 143, 126, 118, 98, 116, 110, 136, 86],
+    'CUPRA': [75, 85, 85, 74, 75, 73, 77, 99, 102, 90, 110, 107, 81, 122, 133, 102, 79, 69, 110, 108, 93, 251, 57, 103],
+    'NISSAN': [19, 48, 39, 37, 79, 57, 32, 41, 35, 35, 62, 15, 37, 210, 154, 273, 67, 67, 570, 101, 0, 320, 1, 3],
+    'CITROEN': [89, 24, 19, 103, 44, 160, 82, 66, 139, 107, 106, 116, 52, 52, 85, 156, 0, 38, 0, 122, 121, 403, 63, 46],
+    'OPEL': [205, 26, 70, 23, 16, 30, 50, 38, 106, 108, 42, 106, 78, 75, 130, 165, 0, 0, 113, 185, 83, 38, 19, 10],
+    'HONDA': [53, 70, 57, 45, 43, 50, 34, 41, 45, 58, 102, 127, 57, 51, 56, 115, 0, 0, 86, 86, 80, 194, 36, 47],
+    'GEELY': [5, 5, 10, 6, 31, 31, 44, 43, 38, 54, 55, 67, 66, 67, 78, 53, 57, 68, 97, 107, 142, 131, 144, 117],
+    'LAND ROVER': [47, 52, 31, 30, 47, 56, 48, 54, 31, 32, 50, 71, 41, 47, 38, 55, 0, 36, 0, 0, 0, 93, 28, 22],
+    'PORSCHE': [37, 47, 35, 26, 34, 53, 40, 42, 53, 47, 51, 52, 30, 32, 47, 43, 35, 0, 0, 0, 0, 56, 40, 41],
+    'SEAT': [18, 29, 22, 27, 20, 18, 29, 70, 32, 29, 29, 27, 15, 27, 35, 81, 0, 0, 0, 0, 0, 62, 65, 36],
+    'LEAPMOTOR': [0, 0, 3, 14, 47, 52, 36, 3, 0, 3, 5, 1, 1, 35, 26, 94, 39, 0, 0, 0, 0, 5, 13, 14],
+    'LEXUS': [35, 33, 24, 39, 36, 21, 25, 22, 41, 53, 56, 32, 37, 41, 43, 55, 0, 0, 0, 0, 0, 52, 41, 30],
+    'MINI': [15, 33, 30, 32, 32, 33, 32, 33, 32, 24, 30, 20, 33, 26, 15, 7, 0, 0, 0, 0, 0, 35, 34, 26],
+    'JEEP': [120, 89, 77, 77, 117, 99, 61, 67, 35, 49, 113, 30, 21, 35, 47, 86, 0, 0, 0, 0, 0, 23, 8, 32],
+    'OMODA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 54, 131, 74],
+    'JAECOO': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 41, 56, 47],
+  }
+};
+
+const TREND_PALETTE = [
+  '#1a4d8f','#c0392b','#8a5828','#1a6b3a','#5a3b8c','#2472a4','#d68910',
+  '#0e7c67','#784212','#2c3e50','#7b241c','#1f618d','#196f3d','#6c3483',
+  '#b7950b','#117a65','#6e2f1a','#1a5276','#145a32','#512e5f',
+  '#1d8348','#922b21','#1a5276','#7d6608','#0e6655',
+  '#4a235a','#935116','#17202a','#0b5345','#5b2333',
+  '#7f8c8d','#2e4053','#784212','#0e6251','#4d5656',
+];
+
+// State for 24-month trend tab
+let t24VolChart = null, t24ShareChart = null;
+let t24ActiveBrands = new Set();
+let t24CurrentBrand = null;
+
+const T24_ALL_BRANDS = Object.keys(MONTHLY_24.brands);
+
+function initTrend24(brand){
+  t24CurrentBrand = brand;
+  // Default: show the opened brand + 4 closest competitors
+  const comps = getCompetitors(brand, 4);
+  t24ActiveBrands = new Set([brand, ...comps]);
+  renderTrend24();
+}
+
+function renderTrend24(){
+  const chips = document.getElementById('t24Chips');
+  const countEl = document.getElementById('t24Count');
+  const selAll = document.getElementById('t24SelectAll');
+  const clrAll = document.getElementById('t24ClearAll');
+  if(!chips || !countEl || !selAll || !clrAll) return;
+
+  // Render chips using event delegation on the container
+  chips.innerHTML = T24_ALL_BRANDS.map(b => {
+    const active = t24ActiveBrands.has(b);
+    const c = CAT[brandCat(b)];
+    const isMain = b === t24CurrentBrand;
+    const bg = active ? `background:${c.fill};border-color:${c.fill};color:#fff;` : '';
+    const outline = isMain ? 'outline:2px solid var(--border2);outline-offset:1px;' : '';
+    return `<div class="brand-chip ${active?'selected':''}" data-t24brand="${b}" style="${bg}${outline}font-size:11px;padding:3px 9px">${b}${isMain?'&nbsp;★':''}</div>`;
+  }).join('');
+
+  chips.onclick = e => {
+    const chip = e.target.closest('[data-t24brand]');
+    if(!chip) return;
+    const b = chip.dataset.t24brand;
+    if(t24ActiveBrands.has(b)) t24ActiveBrands.delete(b);
+    else t24ActiveBrands.add(b);
+    renderTrend24();
+  };
+
+  countEl.textContent = `${t24ActiveBrands.size} brand${t24ActiveBrands.size!==1?'s':''} shown`;
+  selAll.onclick = () => { t24ActiveBrands = new Set(T24_ALL_BRANDS); renderTrend24(); };
+  clrAll.onclick = () => { t24ActiveBrands = new Set(); renderTrend24(); };
+
+  drawTrend24Charts();
+}
+
+function drawTrend24Charts(){
+  const volCtx   = document.getElementById('t24VolChart');
+  const shareCtx = document.getElementById('t24ShareChart');
+  if(!volCtx || !shareCtx) return;
+
+  const activeBrands = T24_ALL_BRANDS.filter(b => t24ActiveBrands.has(b));
+  const labels = MONTHLY_24.labels;
+  const totals = MONTHLY_24.totals;
+
+  const datasets = activeBrands.map((b, i) => {
+    const c = CAT[brandCat(b)];
+    // Use segment color for current brand, palette for others
+    const color = b === t24CurrentBrand ? c.fill : TREND_PALETTE[i % TREND_PALETTE.length];
+    const volData = MONTHLY_24.brands[b] || new Array(24).fill(0);
+    const shareData = volData.map((u, idx) => totals[idx] > 0 ? parseFloat((u/totals[idx]*100).toFixed(3)) : 0);
+    const isFocus = b === t24CurrentBrand;
+    return {
+      label: b,
+      volData,
+      shareData,
+      borderColor: color,
+      backgroundColor: color + (isFocus ? '33' : '11'),
+      borderWidth: isFocus ? 2.5 : 1.5,
+      pointRadius: isFocus ? 3 : 1,
+      pointHoverRadius: 5,
+      fill: false,
+      tension: 0.3,
+    };
+  });
+
+  if(t24VolChart) t24VolChart.destroy();
+  if(t24ShareChart) t24ShareChart.destroy();
+
+  const commonOpts = {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: activeBrands.length <= 12, position: 'bottom',
+        labels: { font: { size: 9 }, padding: 5, boxWidth: 8, boxHeight: 8 } },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      x: { ticks: { font: { size: 8 }, maxRotation: 45 }, grid: { display: false } },
+    }
+  };
+
+  t24VolChart = new Chart(volCtx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: datasets.map(d => ({
+        label: d.label, data: d.volData,
+        borderColor: d.borderColor, backgroundColor: d.backgroundColor,
+        borderWidth: d.borderWidth, pointRadius: d.pointRadius,
+        pointHoverRadius: d.pointHoverRadius, fill: d.fill, tension: d.tension,
+      }))
+    },
+    options: { ...commonOpts,
+      scales: { ...commonOpts.scales,
+        y: { beginAtZero: true, ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v, font: { size: 9 } }, grid: { color: 'rgba(128,128,128,.08)' } }
+      }
+    }
+  });
+
+  t24ShareChart = new Chart(shareCtx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: datasets.map(d => ({
+        label: d.label, data: d.shareData,
+        borderColor: d.borderColor, backgroundColor: d.backgroundColor,
+        borderWidth: d.borderWidth, pointRadius: d.pointRadius,
+        pointHoverRadius: d.pointHoverRadius, fill: d.fill, tension: d.tension,
+      }))
+    },
+    options: { ...commonOpts,
+      scales: { ...commonOpts.scales,
+        y: { beginAtZero: true, ticks: { callback: v => v.toFixed(1)+'%', font: { size: 9 } }, grid: { color: 'rgba(128,128,128,.08)' } }
+      }
+    }
+  });
+}
+
+// trend24 wired directly into switchTab and openBrand below
 
 </script>
 </body>
