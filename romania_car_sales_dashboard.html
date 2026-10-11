@@ -86,7 +86,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
   border-bottom:2px solid var(--border2);
   margin-bottom:2px;
 }
-.blist-header.with-prev{grid-template-columns:26px 32px 18px 1fr 74px 54px 74px 54px 1fr}
+.blist-header.with-prev{grid-template-columns:26px 32px 18px 1fr 74px 54px 60px 74px 54px 1fr}
 .blist-header.no-prev  {grid-template-columns:26px 32px 18px 1fr 74px 54px 1fr}
 .bhdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);text-align:right;white-space:nowrap;line-height:1.3}
 .bhdr.left{text-align:left}
@@ -103,7 +103,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
   cursor:pointer;
   transition:background .1s;
 }
-.bi.with-prev{grid-template-columns:26px 32px 18px 1fr 74px 54px 74px 54px 1fr}
+.bi.with-prev{grid-template-columns:26px 32px 18px 1fr 74px 54px 60px 74px 54px 1fr}
 .bi.no-prev  {grid-template-columns:26px 32px 18px 1fr 74px 54px 1fr}
 .bi:hover{background:var(--surface2)}
 .bi.selected{background:var(--surface2);outline:1.5px solid var(--border2)}
@@ -958,6 +958,7 @@ function renderBarList(){
       <div class="bhdr left" style="color:var(--text2)">Brand</div>
       <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Units</div>
       <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Share %</div>
+      <div class="bhdr" style="color:var(--text2)">Change</div>
       <div class="bhdr" style="color:var(--text3)">${pm.prevLabel}<br>Units</div>
       <div class="bhdr" style="color:var(--text3)">${pm.prevLabel}<br>Share %</div>
       <div class="bhdr center" style="color:var(--border2)">▬</div>`;
@@ -1013,6 +1014,7 @@ function renderBarList(){
         <div class="bn">${d.b}</div>
         <div class="bunit">${d.u.toLocaleString()}</div>
         <div class="bshare">${curShare}%</div>
+        <div class="bvar">${varHtml}</div>
         <div class="bunit-prev">${prevUHtml}</div>
         <div class="bshare-prev">${prevSHtml}</div>
         <div class="btrack"><div class="bfill" style="width:${w}%;background:${c.fill}"></div></div>`
