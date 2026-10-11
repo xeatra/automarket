@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Romania Car Sales —  2023–2026</title>
+<title>Romania Car Sales 2023–2026</title>
 <style>
   :root {
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -313,14 +313,35 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 .eu-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .src-badge{display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;background:var(--surface2);color:var(--text3);margin-left:4px;vertical-align:middle;font-style:italic}
 
+
+/* ── GERMANY TAB ── */
+.de-flag{display:inline-block;font-size:16px;margin-right:6px}
+.de-note{font-size:10px;color:var(--text3);font-style:italic;margin-top:4px}
+.de-krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.de-kpi{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.de-kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:3px}
+.de-kpi .val{font-size:18px;font-weight:600;font-family:var(--font-mono)}
+.de-kpi .sub{font-size:11px;color:var(--text3)}
+.de-table{width:100%;border-collapse:collapse;font-size:12px}
+.de-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:6px 8px;border-bottom:2px solid var(--border2);text-align:right;white-space:nowrap}
+.de-table th.left{text-align:left}
+.de-table th.de-col{background:#e8f0fb;color:#1a3d72}
+.de-table th.ro-col{background:#faf0e4;color:#6a3d16}
+.de-table td{padding:5px 8px;border-bottom:1px solid var(--border);text-align:right;font-family:var(--font-mono);font-size:11px}
+.de-table td.left{font-family:var(--font-sans);font-weight:500;text-align:left;font-size:12px}
+.de-table tr:hover td{background:var(--surface2)}
+.de-mini-bar{display:flex;align-items:center;gap:5px}
+.de-mini-track{flex:1;background:var(--surface2);border-radius:2px;height:5px;overflow:hidden;min-width:40px}
+.de-mini-fill{height:100%;border-radius:2px}
+
 </style>
 </head>
 <body>
 
 
 <div class="hdr">
-  <h1>Romania New Car Registrations — </h1>
-  <div class="sub">Top 35 brands · 2023 · 2024 · 2025 · Jan–Sep 2026 vs 2025 · Source: </div>
+  <h1>Romania New Car Registrations</h1>
+  <div class="sub">Top 50 brands · 2023 · 2024 · 2025 · Jan–Sep 2026 vs 2025</div>
 </div>
 
 <div class="ctrl">
@@ -398,10 +419,12 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
           <button class="eu-tab active" data-eutab="overview">Market overview</button>
           <button class="eu-tab" data-eutab="brands">Brand comparison</button>
           <button class="eu-tab" data-eutab="chinese">Chinese brands spotlight</button>
+          <button class="eu-tab" data-eutab="germany">🇩🇪 Germany vs Romania</button>
         </div>
         <div class="eu-tabpanel active" id="eutab-overview"></div>
         <div class="eu-tabpanel" id="eutab-brands"></div>
         <div class="eu-tabpanel" id="eutab-chinese"></div>
+        <div class="eu-tabpanel" id="eutab-germany"></div>
       </div>
     </div>
   </div>
@@ -495,14 +518,14 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
         </div>
       </div>
       <div style="margin-top:8px;font-size:10px;color:var(--text3)">
-        Sep 2024 → Sep 2026 · Monthly  data · Market share = brand units ÷ total market that month
+        Sep 2024 → Sep 2026 · Monthly data · Market share = brand units ÷ total market that month
       </div>
     </div>
   </div>
 
   <!-- main ranking -->
   <div class="card">
-    <div class="ctitle">Top 35 brands <span id="rankSub"></span></div>
+    <div class="ctitle">Top 50 brands <span id="rankSub"></span></div>
     <div class="rcount" id="rcount"></div>
     <div class="blist-wrap">
       <div id="blistHeader" class="blist-header"></div>
@@ -850,7 +873,7 @@ function brandCat(b){
 }
 
 // Build top 35 ranked by 2025
-const TOP35=[...RAW[2025].brands].sort((a,b)=>b.u-a.u).slice(0,35).map(d=>d.b);
+const TOP35=[...RAW[2025].brands].sort((a,b)=>b.u-a.u).slice(0,50).map(d=>d.b);
 
 // Auto competitor: same category, closest volume in 2025, excluding self
 function getCompetitors(brand,n=5){
@@ -877,7 +900,7 @@ function getFiltered(){
     return{b,u:cur.u,cat:cur.cat};
   });
   rows.sort((a,b)=>b.u-a.u);
-  rows=rows.slice(0,35);
+  rows=rows.slice(0,50);
   if(state.cat!=='all')rows=rows.filter(d=>d.cat===state.cat);
   if(state.search){const s=state.search.toLowerCase();rows=rows.filter(d=>d.b.toLowerCase().includes(s));}
   return rows;
@@ -929,25 +952,25 @@ function renderBarList(){
   hdr.className='blist-header '+(hasPrev?'with-prev':'no-prev');
   if(hasPrev){
     hdr.innerHTML=`
-      <div class="bhdr" style="text-align:right">Rank</div>
-      <div class="bhdr dim" style="text-align:right">LY</div>
+      <div class="bhdr" style="text-align:right;color:var(--text2)">Rank</div>
+      <div class="bhdr" style="text-align:right;color:var(--text3);font-size:9px">LY<br>Rank</div>
       <div class="bhdr"></div>
-      <div class="bhdr left">Brand</div>
-      <div class="bhdr">Change</div>
-      <div class="bhdr dim">${pm.prevLabel}<br>Units</div>
-      <div class="bhdr dim">${pm.prevLabel}<br>Share</div>
+      <div class="bhdr left" style="color:var(--text2)">Brand</div>
+      <div class="bhdr" style="color:var(--text2)">Change</div>
+      <div class="bhdr" style="color:var(--text3)">${pm.prevLabel}<br>Units</div>
+      <div class="bhdr" style="color:var(--text3)">${pm.prevLabel}<br>Share %</div>
       <div class="bhdr center" style="color:var(--border2)">▬</div>
-      <div class="bhdr">${pm.label}<br>Units</div>
-      <div class="bhdr">${pm.label}<br>Share</div>`;
+      <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Units</div>
+      <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Share %</div>`;
   } else {
     hdr.innerHTML=`
-      <div class="bhdr" style="text-align:right">Rank</div>
-      <div class="bhdr dim" style="text-align:right">LY</div>
+      <div class="bhdr" style="text-align:right;color:var(--text2)">Rank</div>
+      <div class="bhdr" style="text-align:right;color:var(--text3);font-size:9px">LY<br>Rank</div>
       <div class="bhdr"></div>
-      <div class="bhdr left">Brand</div>
+      <div class="bhdr left" style="color:var(--text2)">Brand</div>
       <div class="bhdr center" style="color:var(--border2)">▬</div>
-      <div class="bhdr">${pm.label}<br>Units</div>
-      <div class="bhdr">${pm.label}<br>Share</div>`;
+      <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Units</div>
+      <div class="bhdr" style="color:var(--text2)">${pm.label}<br>Share %</div>`;
   }
 
   if(!filtered.length){document.getElementById('barList').innerHTML='<div class="nores">No brands match your filters.</div>';return;}
@@ -1789,7 +1812,7 @@ function renderIntelPanel(){
     ? `${pm.label} vs ${pm.prevLabel}` : pm.label;
 
   // ── Winners & Losers (top 35 by current year) ──
-  const top35cur = [...curSrc].sort((a,b)=>b.u-a.u).slice(0,35);
+  const top35cur = [...curSrc].sort((a,b)=>b.u-a.u).slice(0,50);
   let movers = [];
   if(pm.hasPrev && prevSrc){
     movers = top35cur.map(d=>{
@@ -1849,7 +1872,7 @@ function renderIntelPanel(){
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px">
       <div class="kpi"><div class="kpi-lbl">Total market</div><div class="kpi-val">${curTotal.toLocaleString()}</div><div class="kpi-sub">${pm.label}</div>${marketDeltaHtml}</div>
       <div class="kpi"><div class="kpi-lbl">Market leader</div><div class="kpi-val" style="font-size:14px">${top1.b}</div><div class="kpi-sub">${top1.u.toLocaleString()} · ${top1share}%</div></div>
-      <div class="kpi"><div class="kpi-lbl">Brands tracked</div><div class="kpi-val">${top35cur.length}</div><div class="kpi-sub">top 35 by volume</div></div>
+      <div class="kpi"><div class="kpi-lbl">Brands tracked</div><div class="kpi-val">${top35cur.length}</div><div class="kpi-sub">top 50 by volume</div></div>
       ${pm.hasPrev?`<div class="kpi"><div class="kpi-lbl">Winners (top 35)</div><div class="kpi-val up" style="font-size:16px">${truMovers.filter(d=>d.pct>0).length}</div><div class="kpi-sub">brands grew</div></div>
       <div class="kpi"><div class="kpi-lbl">Losers (top 35)</div><div class="kpi-val down" style="font-size:16px">${truMovers.filter(d=>d.pct<0).length}</div><div class="kpi-sub">brands declined</div></div>`:''}
     </div>
@@ -1879,7 +1902,7 @@ function renderIntelPanel(){
     </div>
     ${newEntrants.length>0?`
     <div class="intel-section">
-      <div class="intel-section-title">🆕 New entrants — first time in top 35</div>
+      <div class="intel-section-title">🆕 New entrants — first time in top 50</div>
       <div class="winners-grid">${newEntrants.map(d=>{
         const c=CAT[d.cat];
         return `<div class="wl-card winner" style="border-left-color:#2472a4" onclick="closeIntelPanel();openBrand('${d.b}')">
@@ -1967,7 +1990,7 @@ function renderIntelPanel(){
 
 // Romania Jan-Apr 2026 (from monthly sheets: Jan+Feb+Mar+Apr)
 const RO_JAN_APR_2026_TOTAL = 35565; // 7581+8546+9850+9588
-const RO_JAN_APR_2025_TOTAL = 45225; // from JM25 minus May (53515 - ~8290 est) — using  monthly data
+const RO_JAN_APR_2025_TOTAL = 45225; // from JM25 minus May (53515 - ~8290 est) — using official data monthly data
 // Actually compute from individual months we have for 2025
 // We don't have 2025 monthly breakdown, so use JM25 proportional estimate:
 // Jan-Apr 2025 Romania ~ total from sheets context. We'll use known full JM25=53515
@@ -2194,7 +2217,7 @@ function renderEuOverview(){
       </div>
     </div>
     <div style="margin-top:4px;font-size:11px;color:var(--text3)">
-      <strong>Notes:</strong> EU figures = EU+EFTA+UK (31 countries). Romania = Jan–Apr 2026 sum of monthly  sheets.
+      <strong>Notes:</strong> EU figures = EU+EFTA+UK (31 countries). Romania = Jan–Apr 2026 sum of monthly data.
       Chinese brands tracked: BYD, MG (SAIC), Chery (incl. OMODA/JAECOO), Leapmotor, Geely.
       Figures marked est. are sourced from manufacturer press releases, JATO, or Tridens — not official ACEA.
     </div>`;
@@ -2666,6 +2689,301 @@ function drawTrend24Charts(){
 }
 
 // trend24 wired directly into switchTab and openBrand below
+
+
+const DE_2026_JAN_AUG = {total:1965024,total_2025:1873222,note:'Jan\u2013Aug 2026, KBA. Brand units estimated from group totals + % changes (CAM/KBA).',brands:[{b:'VOLKSWAGEN',u:359751,cat:'Mainstream'},{b:'MERCEDES-BENZ',u:179040,cat:'Luxury'},{b:'BMW',u:167357,cat:'Luxury'},{b:'SKODA',u:165828,cat:'Mainstream'},{b:'AUDI',u:136097,cat:'Premium'},{b:'SEAT',u:108626,cat:'Mainstream'},{b:'OPEL',u:86699,cat:'Mainstream'},{b:'FORD',u:63499,cat:'Mainstream'},{b:'HYUNDAI',u:63382,cat:'Mainstream'},{b:'TESLA',u:51057,cat:'Premium'},{b:'RENAULT',u:46954,cat:'Mainstream'},{b:'FIAT',u:45957,cat:'Mainstream'},{b:'DACIA',u:45542,cat:'Mainstream'},{b:'KIA',u:43339,cat:'Mainstream'},{b:'TOYOTA',u:43044,cat:'Mainstream'},{b:'PEUGEOT',u:41746,cat:'Mainstream'},{b:'CITROEN',u:36381,cat:'Mainstream'},{b:'BYD',u:36314,cat:'Mainstream'},{b:'VOLVO',u:35548,cat:'Premium'},{b:'MAZDA',u:32984,cat:'Premium'},{b:'MINI',u:26525,cat:'Premium'},{b:'MG',u:22789,cat:'Mainstream'},{b:'NISSAN',u:22375,cat:'Mainstream'},{b:'PORSCHE',u:20807,cat:'Luxury'},{b:'SUZUKI',u:15284,cat:'Mainstream'},{b:'LEAPMOTOR',u:11232,cat:'Mainstream'},{b:'LAND ROVER',u:10230,cat:'Luxury'},{b:'MITSUBISHI',u:9879,cat:'Mainstream'},{b:'JEEP',u:7947,cat:'Premium'},{b:'ALFA ROMEO',u:3219,cat:'Premium'}]};
+const DE_2025_JAN_AUG = {total:1873222,brands:[{b:'VOLKSWAGEN',u:382307},{b:'MERCEDES-BENZ',u:169706},{b:'BMW',u:159085},{b:'SKODA',u:145719},{b:'AUDI',u:130611},{b:'SEAT',u:112101},{b:'OPEL',u:82179},{b:'FORD',u:71028},{b:'HYUNDAI',u:62018},{b:'TOYOTA',u:52815},{b:'DACIA',u:47390},{b:'VOLVO',u:42623},{b:'PEUGEOT',u:40609},{b:'KIA',u:40092},{b:'RENAULT',u:38424},{b:'FIAT',u:37182},{b:'CITROEN',u:33194},{b:'MAZDA',u:27125},{b:'NISSAN',u:23020},{b:'PORSCHE',u:22065},{b:'MINI',u:20357},{b:'MITSUBISHI',u:16858},{b:'SUZUKI',u:15708},{b:'MG',u:15398},{b:'TESLA',u:11882},{b:'LAND ROVER',u:9175},{b:'JEEP',u:9051},{b:'BYD',u:8451},{b:'ALFA ROMEO',u:5285},{b:'LEAPMOTOR',u:2763}]};
+
+// ── GERMANY DATA (KBA, via best-selling-cars.com) ────────────────────────────
+const DE_2025 = {total:2857591, brands:[{b:'VOLKSWAGEN',u:560796,cat:'Mainstream'},{b:'MERCEDES-BENZ',u:260415,cat:'Luxury'},{b:'BMW',u:253712,cat:'Luxury'},{b:'SKODA',u:226472,cat:'Mainstream'},{b:'AUDI',u:205862,cat:'Premium'},{b:'SEAT',u:162566,cat:'Mainstream'},{b:'OPEL',u:136189,cat:'Mainstream'},{b:'FORD',u:108299,cat:'Mainstream'},{b:'HYUNDAI',u:93839,cat:'Mainstream'},{b:'TOYOTA',u:87578,cat:'Mainstream'},{b:'DACIA',u:73644,cat:'Mainstream'},{b:'KIA',u:60391,cat:'Mainstream'},{b:'RENAULT',u:59446,cat:'Mainstream'},{b:'VOLVO',u:59380,cat:'Premium'},{b:'PEUGEOT',u:57613,cat:'Mainstream'},{b:'FIAT',u:54243,cat:'Mainstream'},{b:'CITROEN',u:48854,cat:'Mainstream'},{b:'MAZDA',u:40724,cat:'Premium'},{b:'MINI',u:34647,cat:'Premium'},{b:'NISSAN',u:31112,cat:'Mainstream'},{b:'PORSCHE',u:29692,cat:'Luxury'},{b:'MG',u:26479,cat:'Mainstream'},{b:'BYD',u:23306,cat:'Mainstream'},{b:'SUZUKI',u:22369,cat:'Mainstream'},{b:'MITSUBISHI',u:20361,cat:'Mainstream'},{b:'TESLA',u:19390,cat:'Premium'},{b:'LAND ROVER',u:13061,cat:'Luxury'},{b:'JEEP',u:12039,cat:'Premium'},{b:'ALFA ROMEO',u:7346,cat:'Premium'},{b:'LEAPMOTOR',u:7280,cat:'Mainstream'}]};
+const DE_2026_H1 = {total:1484393, brands:[{b:'VOLKSWAGEN',u:273747,cat:'Mainstream'},{b:'SKODA',u:128218,cat:'Mainstream'},{b:'BMW',u:126766,cat:'Luxury'},{b:'MERCEDES-BENZ',u:125960,cat:'Luxury'},{b:'AUDI',u:106422,cat:'Premium'},{b:'SEAT',u:79094,cat:'Mainstream'},{b:'OPEL',u:70403,cat:'Mainstream'},{b:'HYUNDAI',u:48306,cat:'Mainstream'},{b:'FORD',u:48255,cat:'Mainstream'},{b:'FIAT',u:35832,cat:'Mainstream'},{b:'DACIA',u:34430,cat:'Mainstream'},{b:'RENAULT',u:33291,cat:'Mainstream'},{b:'TOYOTA',u:32206,cat:'Mainstream'},{b:'PEUGEOT',u:31235,cat:'Mainstream'},{b:'KIA',u:30927,cat:'Mainstream'},{b:'TESLA',u:28857,cat:'Premium'},{b:'CITROEN',u:27220,cat:'Mainstream'},{b:'VOLVO',u:26278,cat:'Premium'},{b:'BYD',u:26252,cat:'Mainstream'},{b:'MAZDA',u:24435,cat:'Premium'},{b:'MINI',u:21171,cat:'Premium'},{b:'NISSAN',u:16742,cat:'Mainstream'},{b:'MG',u:16152,cat:'Mainstream'},{b:'PORSCHE',u:15601,cat:'Luxury'},{b:'SUZUKI',u:11436,cat:'Mainstream'},{b:'LEAPMOTOR',u:8402,cat:'Mainstream'},{b:'LAND ROVER',u:7654,cat:'Luxury'},{b:'MITSUBISHI',u:6912,cat:'Mainstream'},{b:'JEEP',u:5892,cat:'Premium'},{b:'ALFA ROMEO',u:2511,cat:'Premium'}]};
+const DE_2025_H1 = {total:1402789, brands:[{b:'VOLKSWAGEN',u:286047},{b:'MERCEDES-BENZ',u:126976},{b:'BMW',u:119029},{b:'SKODA',u:109029},{b:'AUDI',u:97725},{b:'SEAT',u:83875},{b:'OPEL',u:61487},{b:'FORD',u:53144},{b:'HYUNDAI',u:46403},{b:'TOYOTA',u:39517},{b:'DACIA',u:35458},{b:'VOLVO',u:31891},{b:'PEUGEOT',u:30384},{b:'KIA',u:29997},{b:'RENAULT',u:28749},{b:'FIAT',u:27820},{b:'CITROEN',u:24836},{b:'MAZDA',u:20295},{b:'NISSAN',u:17224},{b:'PORSCHE',u:16509},{b:'MINI',u:15231},{b:'MITSUBISHI',u:12613},{b:'SUZUKI',u:11753},{b:'MG',u:11521},{b:'TESLA',u:8890},{b:'LAND ROVER',u:6865},{b:'JEEP',u:6772},{b:'BYD',u:6323},{b:'ALFA ROMEO',u:3954},{b:'LEAPMOTOR',u:2067}]};
+
+// Render Germany vs Romania tab
+function renderGermanyTab(){
+  const panel = document.getElementById('eutab-germany');
+  if(!panel) return;
+
+  // Market size KPIs
+  const ro2025total = RAW[2025].total;         // 155,251
+  const ro2026total = RAW[2026].total;          // 96,253 (Jan-Sep YTD)
+  const de2025total = DE_2025.total;
+  const de2026total = DE_2026_H1.total;
+
+  const ratio2025 = (de2025total/ro2025total).toFixed(1);
+  const roPop = 19; const dePop = 84; // millions
+  const de_per_capita = (de2025total/dePop/1000).toFixed(1);
+  const ro_per_capita = (ro2025total/roPop/1000).toFixed(1);
+
+  // Build brand table — top 30 Germany 2025 vs Romania 2025
+  const de_brands = DE_2025.brands.slice(0,30);
+  const maxDE = de_brands[0].u;
+  const maxRO = Math.max(...de_brands.map(d => {const f=RAW[2025].brands.find(r=>r.b===d.b); return f?f.u:0;}), 1);
+
+  const tableRows = de_brands.map((d,i) => {
+    const ro = RAW[2025].brands.find(r=>r.b===d.b);
+    const roU = ro ? ro.u : 0;
+    const deShare = (d.u/de2025total*100).toFixed(2);
+    const roShare = roU>0 ? (roU/ro2025total*100).toFixed(2) : '—';
+    const roVsDe  = roU>0 ? (roU/d.u*100).toFixed(2) : '—';
+    const c = CAT[d.cat] || CAT['Mainstream'];
+    const deW = (d.u/maxDE*100).toFixed(1);
+    const roW = roU>0 ? (roU/maxRO*100).toFixed(1) : 0;
+    return `<tr>
+      <td class="left">${i+1}</td>
+      <td class="left"><div style="display:flex;align-items:center;gap:5px">
+        <div class="seg-dot" style="background:${c.fill};width:12px;height:12px;font-size:7px">${c.letter}</div>${d.b}
+      </div></td>
+      <td><div class="de-mini-bar"><div class="de-mini-track"><div class="de-mini-fill" style="width:${deW}%;background:#1a4d8f"></div></div>${d.u.toLocaleString()}</div></td>
+      <td>${deShare}%</td>
+      <td><div class="de-mini-bar"><div class="de-mini-track"><div class="de-mini-fill" style="width:${roW}%;background:#8a5828"></div></div>${roU>0?roU.toLocaleString():'—'}</div></td>
+      <td>${roShare !== '—' ? roShare+'%' : '—'}</td>
+      <td>${roVsDe !== '—' ? roVsDe+'%' : '—'}</td>
+    </tr>`;
+  }).join('');
+
+  // 2026 H1 comparison table
+  const de_h1_brands = DE_2026_H1.brands.slice(0,30);
+  const ro2026h1total = RO_JAN_APR_2026_TOTAL; // Jan-Apr RO (closest we have to H1)
+  const de2026h1_maxU = de_h1_brands[0].u;
+
+  const tableRows26 = de_h1_brands.map((d,i) => {
+    const c = CAT[d.cat] || CAT['Mainstream'];
+    const prev = DE_2025_H1.brands.find(x=>x.b===d.b);
+    const prevU = prev ? prev.u : 0;
+    const pct = prevU>0 ? ((d.u-prevU)/prevU*100).toFixed(1) : null;
+    const deShare = (d.u/de2026total*100).toFixed(2);
+    const deW = (d.u/de2026h1_maxU*100).toFixed(1);
+    const dHtml = pct!==null ? `<span class="delta ${pct>=0?'up':'down'}">${pct>=0?'+':''}${pct}%</span>` : '—';
+    return `<tr>
+      <td class="left">${i+1}</td>
+      <td class="left"><div style="display:flex;align-items:center;gap:5px">
+        <div class="seg-dot" style="background:${c.fill};width:12px;height:12px;font-size:7px">${c.letter}</div>${d.b}
+      </div></td>
+      <td><div class="de-mini-bar"><div class="de-mini-track"><div class="de-mini-fill" style="width:${deW}%;background:#1a4d8f"></div></div>${d.u.toLocaleString()}</div></td>
+      <td>${deShare}%</td>
+      <td>${prevU>0?prevU.toLocaleString():'—'}</td>
+      <td>${dHtml}</td>
+    </tr>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="de-krow">
+      <div class="de-kpi"><div class="lbl">🇩🇪 Germany 2025</div><div class="val">${de2025total.toLocaleString()}</div><div class="sub">+1.4% vs 2024 · KBA</div></div>
+      <div class="de-kpi"><div class="lbl">🇷🇴 Romania 2025</div><div class="val">${ro2025total.toLocaleString()}</div><div class="sub">+4.5% vs 2024</div></div>
+      <div class="de-kpi"><div class="lbl">DE market is</div><div class="val">${ratio2025}×</div><div class="sub">larger than Romania by volume</div></div>
+      <div class="de-kpi"><div class="lbl">DE per capita</div><div class="val">${de_per_capita}k</div><div class="sub">new cars per 1,000 pop. (84M)</div></div>
+      <div class="de-kpi"><div class="lbl">RO per capita</div><div class="val">${ro_per_capita}k</div><div class="sub">new cars per 1,000 pop. (19M)</div></div>
+      <div class="de-kpi"><div class="lbl">🇩🇪 Germany H1 2026</div><div class="val">${de2026total.toLocaleString()}</div><div class="sub">Jan–Jun · +5.8% vs H1 2025</div></div>
+      <div class="de-kpi"><div class="lbl">🇩🇪 Germany Jan–Aug 2026</div><div class="val">1,965,024</div><div class="sub">+4.8% vs Jan–Aug 2025 · KBA</div></div>
+    </div>
+
+    <div style="margin-bottom:18px">
+      <div class="eu-section-title">Market structure comparison — 2025</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div><div style="position:relative;height:240px"><canvas id="deStructChart" role="img" aria-label="Germany vs Romania market structure"></canvas></div></div>
+        <div><div style="position:relative;height:240px"><canvas id="deSegChart" role="img" aria-label="Segment comparison Germany Romania 2025"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="eu-tabs" style="margin-bottom:14px">
+      <button class="eu-tab active" data-detab="2025">2025 Full Year</button>
+      <button class="eu-tab" data-detab="2026h1">2026 H1 (Jan–Jun)</button>
+      <button class="eu-tab" data-detab="2026aug">2026 Jan–Aug</button>
+    </div>
+    <div id="detab-2025">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px">
+        Germany 2025 full year (KBA) vs Romania 2025 full year. "RO % of DE" = Romania units as share of Germany's volume for the same brand.
+        <span style="background:#e8f0fb;color:#1a3d72;padding:1px 5px;border-radius:3px;font-size:10px">🇩🇪 DE</span>
+        <span style="background:#faf0e4;color:#6a3d16;padding:1px 5px;border-radius:3px;font-size:10px;margin-left:4px">🇷🇴 RO</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="de-table">
+          <thead><tr>
+            <th class="left" style="width:30px">#</th>
+            <th class="left">Brand</th>
+            <th class="de-col">🇩🇪 Units 2025</th>
+            <th class="de-col">DE share</th>
+            <th class="ro-col">🇷🇴 Units 2025</th>
+            <th class="ro-col">RO share</th>
+            <th>RO % of DE</th>
+          </tr></thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </div>
+    </div>
+    <div id="detab-2026h1" style="display:none">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px">
+        Germany Jan–Jun 2026 (KBA, H1 2026: 1,484,393 units, +5.8%). Previous = H1 2025 estimate from % change figures.
+        Note: Romania H1 2026 data not directly available — use Jan–Sep YTD tab for Romania 2026 data.
+      </div>
+      <div style="overflow-x:auto">
+        <table class="de-table">
+          <thead><tr>
+            <th class="left" style="width:30px">#</th>
+            <th class="left">Brand</th>
+            <th class="de-col">🇩🇪 H1 2026</th>
+            <th class="de-col">DE share</th>
+            <th class="de-col">H1 2025 est.</th>
+            <th class="de-col">Δ%</th>
+          </tr></thead>
+          <tbody>${tableRows26}</tbody>
+        </table>
+      </div>
+    </div>
+    <div id="detab-2026aug" style="display:none">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px">
+        Germany Jan–Aug 2026 · KBA total: 1,965,024 (+4.8% vs Jan–Aug 2025). Brand units estimated from group totals and % changes published by KBA/CAM (Center of Automotive Management). Market total and group splits are official KBA figures.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+        <div><div style="position:relative;height:220px"><canvas id="deAugChart" role="img" aria-label="Germany Jan-Aug 2026 brand chart"></canvas></div></div>
+        <div style="padding-top:4px">
+          <div style="font-size:12px;font-weight:600;margin-bottom:10px">Key highlights Jan–Aug 2026 vs 2025</div>
+          <div style="font-size:11px;line-height:1.8;color:var(--text2)">
+            🏆 <strong>Total market:</strong> +4.8% to 1,965,024 units<br>
+            📈 <strong>BYD:</strong> +330% — record Chinese brand growth<br>
+            📈 <strong>Tesla:</strong> +330% — powered by BEV incentives<br>
+            📈 <strong>Leapmotor:</strong> +307% — fastest-growing brand<br>
+            📈 <strong>Mazda:</strong> +21.6% · <strong>Renault:</strong> +22.2%<br>
+            📉 <strong>VW brand:</strong> -5.9% (market share slipping)<br>
+            📉 <strong>Toyota:</strong> -18.5% · <strong>Mitsubishi:</strong> -41.4%<br>
+            📉 <strong>Alfa Romeo:</strong> -39.1% · <strong>Ford:</strong> -10.6%<br>
+            🇨🇳 Chinese brands: 126,458 units, <strong>6.4% market share</strong><br>
+            ⚡ BEVs: <strong>32.4%</strong> share in Aug 2026 alone
+          </div>
+        </div>
+      </div>
+      <div style="overflow-x:auto" id="deAugTableWrap"></div>
+    </div>
+
+    <div class="de-note" style="margin-top:12px">
+      Sources: Germany — KBA (Kraftfahrt-Bundesamt) via best-selling-cars.com, CAM, VDIK · 
+      SEAT in KBA data includes Cupra. MG = MG Roewe. Jan–Aug 2026 brand units are estimates derived from official KBA group totals and % change data; H1 brand units are exact KBA figures.
+    </div>`;
+
+  // Wire sub-tabs
+  setTimeout(()=>{
+    panel.querySelectorAll('[data-detab]').forEach(t=>{
+      t.addEventListener('click',()=>{
+        panel.querySelectorAll('[data-detab]').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        panel.querySelectorAll('#detab-2025,#detab-2026h1,#detab-2026aug').forEach(p=>p.style.display='none');
+        const tid='detab-'+t.dataset.detab;
+        document.getElementById(tid).style.display='block';
+        if(t.dataset.detab==='2026aug') drawDeAugTab();
+      });
+    });
+    drawGermanyCharts();
+  },50);
+}
+
+let deStructChart=null, deSegChart=null;
+function drawGermanyCharts(){
+  const sc = document.getElementById('deStructChart');
+  const sg = document.getElementById('deSegChart');
+  if(!sc||!sg) return;
+
+  // Structure: volume comparison bar
+  if(deStructChart) deStructChart.destroy();
+  deStructChart = new Chart(sc,{
+    type:'bar',
+    data:{
+      labels:['2024','2025','2026 H1'],
+      datasets:[
+        {label:'🇩🇪 Germany',data:[2817331,2857591,1484393],backgroundColor:['#1a4d8f88','#1a4d8f','#1a4d8fcc'],borderRadius:4,borderWidth:0,yAxisID:'y'},
+        {label:'🇷🇴 Romania',data:[148596,155251,96253],backgroundColor:['#8a582888','#8a5828','#8a5828cc'],borderRadius:4,borderWidth:0,yAxisID:'y1'},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}}},
+      scales:{
+        y:{type:'linear',position:'left',ticks:{callback:v=>(v/1000000).toFixed(1)+'M',font:{size:9}},grid:{color:'rgba(128,128,128,.08)'},title:{display:true,text:'DE (left)',font:{size:9}}},
+        y1:{type:'linear',position:'right',ticks:{callback:v=>v.toLocaleString(),font:{size:9}},grid:{display:false},title:{display:true,text:'RO (right)',font:{size:9}}},
+        x:{ticks:{font:{size:10}},grid:{display:false}}
+      }}
+  });
+
+  // Segment mix comparison
+  const cats = ['Mainstream','Premium','Luxury','Ultra-Luxury'];
+  const deVals = cats.map(c=>DE_2025.brands.filter(d=>d.cat===c).reduce((s,d)=>s+d.u,0));
+  const roVals = cats.map(c=>RAW[2025].brands.filter(d=>d.cat===c).reduce((s,d)=>s+d.u,0));
+  const deTotal = DE_2025.total; const roTotal = RAW[2025].total;
+  if(deSegChart) deSegChart.destroy();
+  deSegChart = new Chart(sg,{
+    type:'bar',
+    data:{
+      labels:cats.map(c=>c==='Ultra-Luxury'?'Ultra':c),
+      datasets:[
+        {label:'🇩🇪 Germany',data:deVals.map(v=>+(v/deTotal*100).toFixed(2)),backgroundColor:'#1a4d8f',borderRadius:3,borderWidth:0},
+        {label:'🇷🇴 Romania',data:roVals.map(v=>+(v/roTotal*100).toFixed(2)),backgroundColor:'#8a5828',borderRadius:3,borderWidth:0},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`}}},
+      scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'%',font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}},
+              x:{ticks:{font:{size:10}},grid:{display:false}}}}
+  });
+}
+
+function drawDeAugTab(){
+  const wrap = document.getElementById('deAugTableWrap');
+  if(!wrap) return;
+  const brands = DE_2026_JAN_AUG.brands.slice(0,30);
+  const total26 = DE_2026_JAN_AUG.total;
+  const total25 = DE_2026_JAN_AUG.total_2025;
+  const maxU = brands[0].u;
+  wrap.innerHTML = `<table class="de-table">
+    <thead><tr>
+      <th class="left" style="width:30px">#</th>
+      <th class="left">Brand</th>
+      <th class="de-col">Jan–Aug 2026</th>
+      <th class="de-col">Share</th>
+      <th class="de-col">Jan–Aug 2025 est.</th>
+      <th class="de-col">Δ%</th>
+    </tr></thead>
+    <tbody>${brands.map((d,i)=>{
+      const c=CAT[d.cat]||CAT['Mainstream'];
+      const prev=DE_2025_JAN_AUG.brands.find(x=>x.b===d.b);
+      const prevU=prev?prev.u:0;
+      const pct=prevU>0?((d.u-prevU)/prevU*100).toFixed(1):null;
+      const share=(d.u/total26*100).toFixed(2);
+      const w=(d.u/maxU*100).toFixed(1);
+      const dHtml=pct!==null?`<span class="delta ${pct>=0?'up':'down'}">${pct>=0?'+':''}${pct}%</span>`:'—';
+      return `<tr>
+        <td class="left">${i+1}</td>
+        <td class="left"><div style="display:flex;align-items:center;gap:5px">
+          <div class="seg-dot" style="background:${c.fill};width:12px;height:12px;font-size:7px">${c.letter}</div>${d.b}
+        </div></td>
+        <td><div class="de-mini-bar"><div class="de-mini-track"><div class="de-mini-fill" style="width:${w}%;background:#1a4d8f"></div></div>${d.u.toLocaleString()}</div></td>
+        <td>${share}%</td>
+        <td>${prevU>0?prevU.toLocaleString():'—'}</td>
+        <td>${dHtml}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+
+  const ctx=document.getElementById('deAugChart');
+  if(!ctx||ctx._drawn) return;
+  ctx._drawn=true;
+  const top15=brands.slice(0,15);
+  new Chart(ctx,{
+    type:'bar',
+    data:{labels:top15.map(d=>d.b),datasets:[
+      {label:'Jan–Aug 2026',data:top15.map(d=>d.u),backgroundColor:'#1a4d8f',borderRadius:3,borderWidth:0},
+      {label:'Jan–Aug 2025 est.',data:top15.map(d=>{const p=DE_2025_JAN_AUG.brands.find(x=>x.b===d.b);return p?p.u:0;}),backgroundColor:'#1a4d8f44',borderRadius:3,borderWidth:0},
+    ]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},padding:6,boxWidth:8}}},
+      scales:{x:{ticks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v,font:{size:8}},grid:{color:'rgba(128,128,128,.08)'}},
+              y:{ticks:{font:{size:9}},grid:{display:false}}}}
+  });
+}
+
+// Wire Germany tab render into EU tab click
+document.querySelectorAll('.eu-tab[data-eutab="germany"]').forEach(t=>{
+  t.addEventListener('click',()=>{ setTimeout(renderGermanyTab,50); });
+});
 
 </script>
 </body>
