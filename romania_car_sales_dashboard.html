@@ -340,6 +340,23 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 .mtab.active{color:var(--text);border-bottom-color:var(--text)}
 .mtabpanel{display:none}
 .mtabpanel.active{display:block}
+
+/* ── KEY TAKEAWAYS ── */
+.tk-card{border:1px solid var(--border);border-left:4px solid var(--border2);border-radius:var(--r);background:var(--surface2);padding:12px 16px;margin-bottom:18px}
+.tk-card.tk-up2,.tk-card.tk-up{border-left-color:var(--green)}
+.tk-card.tk-down{border-left-color:var(--red)}
+.tk-card.tk-new{border-left-color:var(--m)}
+.tk-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.tk-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2)}
+.tk-tag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px}
+.tk-tag-up2{background:var(--green);color:#fff}
+.tk-tag-up{background:var(--green-bg);color:var(--green)}
+.tk-tag-down{background:var(--red-bg);color:var(--red)}
+.tk-tag-new{background:var(--m-bg);color:var(--m-t)}
+.tk-tag-neutral{background:var(--surface);color:var(--text2);border:1px solid var(--border2)}
+.tk-list{margin:0;padding-left:18px;font-size:12.5px;line-height:1.6;color:var(--text)}
+.tk-list li{margin-bottom:3px}
+.tk-note{font-size:10.5px;color:var(--text3);margin-top:6px;font-style:italic}
 </style>
 </head>
 <body>
@@ -486,6 +503,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <div><div class="dp-name" id="mpName"></div><div class="dp-sub" id="mpSub"></div></div>
       <button class="dp-close" id="mpClose">✕ Close</button>
     </div>
+    <div id="tkMoto" class="tk-card" style="display:none"></div>
     <div class="dp-krow" id="mpKrow"></div>
     <div class="tabs">
       <button class="mtab active" data-mtab="month">Monthly 2026 vs 2025</button>
@@ -527,6 +545,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <div><div class="dp-name" id="dpName"></div><div class="dp-sub" id="dpSub"></div></div>
       <button class="dp-close" id="dpClose">✕ Close</button>
     </div>
+    <div id="tkCar" class="tk-card" style="display:none"></div>
     <div class="dp-krow" id="dpKrow"></div>
     <div class="tabs">
       <button class="tab active" data-tab="evo">Year-by-year evolution</button>
@@ -2607,6 +2626,21 @@ const MONTHLY_24 = {
     'JEEP': [120, 89, 77, 77, 117, 99, 61, 67, 35, 49, 113, 30, 21, 35, 47, 86, 0, 0, 0, 0, 0, 23, 8, 32, 7, 7],
     'OMODA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 54, 131, 74, 203, 128],
     'JAECOO': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 41, 56, 47, 39, 90],
+    'MITSUBISHI': [10, 17, 10, 21, 16, 12, 13, 21, 26, 49, 45, 60, 68, 50, 36, 69, null, null, null, null, null, 31, 21, 27, 20, 20],
+    'FIAT': [44, 40, 40, 41, 27, 22, 33, 32, 26, 30, 37, 47, 45, 28, 8, 309, null, null, null, null, null, 18, 10, 32, 15, 13],
+    'SUBARU': [1, 5, 4, 3, 4, 5, 4, 15, 13, 12, 17, 22, 10, 15, 11, 8, null, null, null, null, null, 20, 6, 10, 11, 7],
+    'ALFA ROMEO': [6, 13, 13, 13, 18, 27, 5, 18, 19, 9, 16, 22, 22, 13, 13, 47, null, null, null, null, null, 18, 4, 16, 2, 2],
+    'DS': [6, 2, 6, 4, 3, 16, 5, 26, 18, 22, 9, 14, 5, 3, 15, 8, null, null, null, null, null, 3, 1, 0, 0, 0],
+    'LYNK&CO': [0, 5, 0, 4, 2, 3, 6, 4, 6, 7, 17, 4, 10, 11, 12, 21, null, null, null, null, null, 14, 8, 12, 5, 15],
+    'DFSK': [0, 2, 2, 8, 11, 13, 18, 2, 1, 5, 16, 9, 9, 4, 13, 16, null, null, null, null, null, 12, 7, 13, 12, 6],
+    'LAMBORGHINI': [0, 3, 1, 0, 1, 2, 4, 4, 7, 8, 10, 3, 5, 5, 0, 5, null, null, null, null, null, 8, 5, 6, 4, 3],
+    'XPENG': [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, null, 0, 7, 12, 12, 19],
+    'FERRARI': [10, 5, 6, 3, 1, 7, 2, 0, 3, 0, 4, 2, 3, 5, 3, 1, null, null, null, null, null, 14, 2, 5, 4, 7],
+    'ROLLS-ROYCE': [0, 2, 2, 2, 3, 3, 2, 4, 4, 5, 0, 2, 3, 6, 1, 0, null, null, null, null, null, 7, 5, 0, 3, 0],
+    'BENTLEY': [0, 2, 0, 5, 7, 9, 7, 6, 5, 6, 4, 3, 3, 4, 7, 5, null, null, null, null, null, 2, 3, 5, 3, 0],
+    'BAIC': [5, 2, 2, 4, 5, 0, 7, 7, 2, 3, 4, 7, 7, 6, 4, 2, null, null, null, null, null, 3, 0, 3, 3, 4],
+    'ASTON MARTIN': [0, 0, 0, 2, 1, 2, 5, 1, 1, 2, 3, 0, 3, 0, 0, 2, null, null, null, null, null, 4, 3, 0, 0, 1],
+    'ZEEKR': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, null, 12, 18, 11, 15, 18],
   }
 };
 
@@ -2680,8 +2714,9 @@ function drawTrend24Charts(){
     const c = CAT[brandCat(b)];
     // Use segment color for current brand, palette for others
     const color = b === t24CurrentBrand ? c.fill : TREND_PALETTE[i % TREND_PALETTE.length];
-    const volData = MONTHLY_24.brands[b] || new Array(24).fill(0);
-    const shareData = volData.map((u, idx) => totals[idx] > 0 ? parseFloat((u/totals[idx]*100).toFixed(3)) : 0);
+    const _unk = tkUnknown(b);
+    const volData = (MONTHLY_24.brands[b] || new Array(26).fill(0)).map((u,i)=>(u===null||_unk.has(i))?null:u);
+    const shareData = volData.map((u, idx) => u===null ? null : (totals[idx] > 0 ? parseFloat((u/totals[idx]*100).toFixed(3)) : 0));
     const isFocus = b === t24CurrentBrand;
     return {
       label: b,
@@ -3145,7 +3180,7 @@ const _ORIG={
 // ── wrappers: dispatch to Car or Moto implementation ─────────────────────────
 function renderTrend(){ return state.mode==='moto'?renderTrendMoto():renderTrendCar(); }
 function renderMiniTrends(){ return state.mode==='moto'?renderMiniTrendsMoto():renderMiniTrendsCar(); }
-function openBrand(brand){ return state.mode==='moto'?openBrandMoto(brand):openBrandCar(brand); }
+function openBrand(brand){ if(state.mode==='moto') openBrandMoto(brand); else openBrandCar(brand); renderTakeaways(brand); }
 function renderIntelPanel(){
   renderIntelPanelBase();
   if(state.mode==='moto'){
@@ -3346,6 +3381,150 @@ document.getElementById('mpClose').addEventListener('click',()=>{
   document.getElementById('detailPanelMoto').style.display='none';
   state.selected=null; renderBarList(); renderMiniTrends();
 });
+
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// KEY TAKEAWAYS — rule-based text per brand (auto-updates with the data)
+// ═══════════════════════════════════════════════════════════════════════════
+const TK_MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const TK_ABB={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+const tkMonth=l=>{const [m,y]=l.split(' ');return TK_MON[TK_ABB[m]]+' 20'+y;};
+const tkAbb=l=>{const [m,y]=l.split(' ');return m+' 20'+y;};
+const TK_CAR_CHINESE=['BYD','CHERY','OMODA','JAECOO','GEELY','LEAPMOTOR','ZEEKR','XPENG','LYNK&CO','BAIC','DFSK','MG'];
+const TK_MOTO_CHINESE=['CF MOTO','VOGE','ZONTES','BENDA','LINHAI','QJMOTOR','ZNEN','JYMOTO','BENTU','JIAJUE','SEGWAY','SURRON','TALARIA','SUPER SOCO','VMOTO'];
+const TK_MOTO_L=MOTO_MONTHS.map(m=>m+' 25').concat(MOTO_MONTHS.map(m=>m+' 26'));
+const tkF=n=>Math.round(n).toLocaleString();
+const tkP=x=>x<1?x.toFixed(2):x.toFixed(1);
+
+function tkTag(first,last){
+  if(first===0&&last===0) return ['No sales','neutral'];
+  if(first===0) return ['New entrant','new'];
+  if(first<10&&last>=30) return ['New entrant','new'];
+  const r=last/first;
+  if(r>=3) return ['Growing fast','up2'];
+  if(r>=1.1) return ['Growing','up'];
+  if(r<=0.9) return ['Declining','down'];
+  return ['Stable','neutral'];
+}
+function tkGrowth(prev,last,withX,plain){
+  if(prev===0) return `${tkF(last)} (none ${plain})`;
+  if(prev<10&&last>=3*prev) return `${tkF(last)} vs just ${tkF(prev)} ${plain}`;
+  if(prev>0&&last/prev>=3) return `${(last/prev).toFixed(0)}× ${withX} (${tkF(last)} vs ${tkF(prev)})`;
+  const pct=prev>0?(last/prev-1)*100:null;
+  return `${tkF(last)} vs ${tkF(prev)} ${plain}`+(pct!==null?` (${pct>=0?'+':''}${pct.toFixed(0)}%)`:'');
+}
+// YTD line (works for Car and Moto — reads the active dataset)
+function tkYtd(b){
+  const pm=PERIOD_META[2026], y26=getU(2026,b), y25=getU('jul25',b);
+  const r26=RAW[2026].brands.findIndex(d=>d.b===b)+1, r25=JUL25_YTD.brands.findIndex(d=>d.b===b)+1;
+  const s26=y26/pm.total*100, s25=y25/pm.prevTotal*100;
+  let g;
+  if(y25===0) g=`${tkF(y26)} (none in the same months of 2025)`;
+  else if(y25<10&&y26>=3*y25) g=`${tkF(y26)} vs just ${tkF(y25)} in the same months of 2025`;
+  else if(y26/y25>=3) g=`${tkF(y26)} — ${(y26/y25).toFixed(0)}× the ${tkF(y25)} of the same months of 2025`;
+  else {const p=(y26/y25-1)*100; g=`${tkF(y26)} vs ${tkF(y25)} in the same months of 2025 (${p>=0?'+':''}${p.toFixed(0)}%)`;}
+  return `${pm.label}: ${g}. ${r26?'Rank #'+r26:'Not ranked'}${r25?' (was #'+r25+')':''}; share ${tkP(s26)}% (was ${tkP(s25)}%).`;
+}
+// Months where a car brand's monthly value is unknown (not zero): null, or Jan–May 2026 zeros when the monthly series
+// does not add up to the official YTD (brand was outside that month's top-25 list).
+function tkUnknown(b){
+  const u=new Set(); const s=MONTHLY_24.brands[b]; if(!s) return u;
+  s.forEach((v,i)=>{if(v===null)u.add(i);});
+  const known26=s.slice(16).reduce((a,v)=>a+(v||0),0);
+  if(getU(2026,b)-known26>2) for(let i=16;i<=20;i++) if(!s[i]) u.add(i);
+  return u;
+}
+function tkEntryCar(s,unk,L){
+  const idx=t=>s.findIndex((v,i)=>!unk.has(i)&&v!==null&&v>=t);
+  const before=k=>[...unk].some(i=>i<k);
+  const first=idx(1); if(first<0) return null;
+  if(!unk.has(0)&&s[0]>=20){
+    const t1=idx(100), t2=idx(300), parts=[];
+    if(t1>0) parts.push(`first month above 100: ${tkMonth(L[t1])}`);
+    if(t2>0) parts.push(`above 300: ${tkMonth(L[t2])}`);
+    return `Market entry: already selling when our data starts (${tkF(s[0])} units in ${tkMonth(L[0])})`+(parts.length?'; '+parts.join('; '):'')+'.';
+  }
+  const t50=idx(50), t100=idx(100), t300=idx(300);
+  let t='Market entry: ';
+  t+=before(first)?`first registration no later than ${tkMonth(L[first])} (${tkF(s[first])} unit${s[first]>1?'s':''} that month; Jan–May 2026 data incomplete)`
+                  :`first registration ${tkMonth(L[first])} (${tkF(s[first])} unit${s[first]>1?'s':''})`;
+  if(t50>=0) t+=before(t50)?`; real traction by ${tkMonth(L[t50])} at the latest (${tkF(s[t50])} units, first month ≥ 50 in the data)`
+                           :`; real traction from ${tkMonth(L[t50])} (first month ≥ 50 units: ${tkF(s[t50])})`;
+  else t+=`; still below 50 units a month (peak ${tkF(Math.max(...s.map((v,i)=>unk.has(i)||v===null?0:v)))})`;
+  const p=[]; if(t100>=0) p.push(`100/month in ${tkMonth(L[t100])}`); if(t300>=0) p.push(`300/month in ${tkMonth(L[t300])}`);
+  if(p.length) t+=`; passed ${p.join(' and ')}`;
+  return t+'.';
+}
+function tkCar(b){
+  const M=MONTHLY_24, s=M.brands[b], y26=getU(2026,b);
+  if(!s){const [tag,cls]=tkTag(getU('jul25',b),y26); return {tag,cls,lines:[tkYtd(b)],note:'Monthly history is not available for this brand.'};}
+  const L=M.labels, T=M.totals, n=s.length, unk=tkUnknown(b);
+  const v=i=>unk.has(i)||s[i]===null?0:s[i];
+  let prev12=0; for(let i=2;i<=13;i++) prev12+=v(i);
+  const last12=v(14)+v(15)+y26, total=prev12+last12;
+  const chinese=TK_CAR_CHINESE.includes(b);
+  const known=[]; for(let i=2;i<n;i++) if(!unk.has(i)&&s[i]!==null) known.push(i);
+  const bi=known.reduce((a,i)=>s[i]>=s[a]?i:a,known[0]);
+  const wi=known.reduce((a,i)=>s[i]<s[a]?i:a,known[0]);
+  const zeros=known.filter(i=>s[i]===0).length;
+  let [tag,cls]=total<50?['Low volume','neutral']:tkTag(prev12,last12);
+  const y25=getU('jul25',b), yp=y25>0?(y26/y25-1)*100:null, lp=prev12>0?(last12/prev12-1)*100:null;
+  const mixed=total>=50&&yp!==null&&lp!==null&&((Math.abs(yp)>=10&&Math.abs(lp)>=10&&(yp>0)!==(lp>0))||(tag==='Stable'&&Math.abs(yp)>=20));
+  if(mixed){tag='Mixed';cls='neutral';}
+  const lines=[], win=`${tkAbb(L[2])} – ${tkAbb(L[n-1])}`;
+  if(total<50) lines.push(`Low-volume brand: ${tkF(total)} registrations in the last 24 months (${win}).`);
+  else lines.push(`Last 24 months (${win}): ${tkF(total)} registrations, avg ${tkF(total/24)}/month. The latest 12 months: ${tkGrowth(prev12,last12,'the previous 12 months','in the previous 12 months')}.`);
+  if(s[bi]>0){
+    let t=`Best month: ${tkMonth(L[bi])} with ${tkF(s[bi])} units (${(s[bi]/T[bi]*100).toFixed(1)}% of that month's market).`;
+    if(zeros===0&&bi!==wi) t+=` Weakest: ${tkMonth(L[wi])} with ${tkF(s[wi])}.`;
+    else if(zeros>0&&!chinese) t+=` No registrations in ${zeros} of the last 24 months.`;
+    lines.push(t);
+  }
+  lines.push(tkYtd(b));
+  if(chinese){const e=tkEntryCar(s,unk,L); if(e) lines.push(e);}
+  const gap=[...unk].some(i=>i>=16&&i<=20);
+  const notes=[];
+  if(mixed) notes.push('The latest-12-month trend and the year-to-date trend differ markedly — one large month can distort the 12-month view.');
+  if(gap) notes.push('Jan–May 2026 monthly data is incomplete for this brand (months outside the monthly top-25 lists). Totals use the official YTD; those months are left out of best/weakest.');
+  return {tag,cls,lines,note:notes.join(' ')};
+}
+function tkMoto(b){
+  const d=MOTO_DATA.brands[b];
+  if(!d){const [tag,cls]=tkTag(getU('jul25',b),getU(2026,b)); return {tag,cls,lines:[tkYtd(b)],note:'Monthly history is not available for this brand.'};}
+  const v=d.p.concat(d.c), T=MOTO_DATA.prevTotals.concat(MOTO_DATA.totals), L=TK_MOTO_L;
+  const y26=_sum(d.c), y25=_sum(d.p), tot=_sum(v), listed=v.filter(x=>x>0).length;
+  const [tag,cls]=tot<30?['Low volume','neutral']:tkTag(y25,y26);
+  const bi=v.reduce((a,x,i)=>x>=v[a]?i:a,0), wi=v.reduce((a,x,i)=>x<v[a]?i:a,0);
+  const lines=[];
+  lines.push(tot<30?`Low-volume brand: ${tkF(tot)} registrations between ${tkAbb(L[0])} and ${tkAbb(L[19])}.`
+                   :`${tkAbb(L[0])} – ${tkAbb(L[19])} (20 months): ${tkF(tot)} registrations, avg ${tkF(tot/20)}/month.`);
+  if(v[bi]>0){
+    let t=`Best month: ${tkMonth(L[bi])} with ${tkF(v[bi])} units (${(v[bi]/T[bi]*100).toFixed(1)}% of that month's top-25 total).`;
+    if(listed===20&&bi!==wi) t+=` Weakest: ${tkMonth(L[wi])} with ${tkF(v[wi])}.`;
+    lines.push(t);
+  }
+  lines.push(tkYtd(b));
+  if(TK_MOTO_CHINESE.includes(b)){
+    const first=v.findIndex(x=>x>0);
+    if(first===0&&v[0]>=20) lines.push(`Market entry: established when our data starts (${tkF(v[0])} units in ${tkMonth(L[0])}).`);
+    else if(first>=0){
+      const t20=v.findIndex(x=>x>=20), t50=v.findIndex(x=>x>=50);
+      let t=`Market entry: first appears in the data in ${tkMonth(L[first])} (${tkF(v[first])} unit${v[first]>1?'s':''})`;
+      t+=t20>=0?`; 20+ units a month from ${tkMonth(L[t20])}`:`; still below 20 units a month`;
+      if(t50>=0) t+=`; 50+ from ${tkMonth(L[t50])}`;
+      lines.push(t+'.');
+    }
+  }
+  return {tag,cls,lines,note:listed<20?`Listed in the monthly top-25 report in ${listed} of 20 months; months where the brand was not listed are not counted.`:''};
+}
+function renderTakeaways(brand){
+  const moto=state.mode==='moto';
+  const el=document.getElementById(moto?'tkMoto':'tkCar'); if(!el) return;
+  let r; try{ r=moto?tkMoto(brand):tkCar(brand); }catch(e){ el.style.display='none'; return; }
+  el.className='tk-card tk-'+r.cls; el.style.display='block';
+  el.innerHTML=`<div class="tk-head"><span class="tk-title">Key takeaways</span><span class="tk-tag tk-tag-${r.cls}">${r.tag}</span></div><ul class="tk-list">${r.lines.map(l=>`<li>${l}</li>`).join('')}</ul>${r.note?`<div class="tk-note">${r.note}</div>`:''}`;
+}
 
 </script>
 </body>
