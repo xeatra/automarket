@@ -341,7 +341,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 
 <div class="hdr">
   <h1>Romania New Car Registrations</h1>
-  <div class="sub">Top 50 brands · 2023 · 2024 · 2025 · Jan–Sep 2026 vs 2025</div>
+  <div class="sub">Top 50 brands · 2023 · 2024 · 2025 · Jan–Oct 2026 vs 2025</div>
 </div>
 
 <div class="ctrl">
@@ -351,7 +351,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <button class="pill" data-year="2023">2023</button>
       <button class="pill" data-year="2024">2024</button>
       <button class="pill active" data-year="2025">2025</button>
-      <button class="pill" data-year="2026">Jan–Sep 2026 vs 2025</button>
+      <button class="pill" data-year="2026">Jan–Oct 2026 vs 2025</button>
     </div>
   </div>
   <div class="cg">
@@ -469,7 +469,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
     <div class="dp-krow" id="dpKrow"></div>
     <div class="tabs">
       <button class="tab active" data-tab="evo">Year-by-year evolution</button>
-      <button class="tab" data-tab="comp">Jan–Sep 2026 vs 2025</button>
+      <button class="tab" data-tab="comp">Jan–Oct 2026 vs 2025</button>
       <button class="tab" data-tab="rivals">Direct competitors</button>
       <button class="tab" data-tab="trend24">24-Month Trend</button>
     </div>
@@ -485,9 +485,9 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
     </div>
     <div class="tabpanel" id="tab-comp">
       <div class="dp-g2">
-        <div><div class="ctitle">Jan–Jul 2025 vs Jan–Jul 2026</div>
+        <div><div class="ctitle">Jan–Oct 2025 vs Jan–Oct 2026</div>
           <div style="position:relative;height:220px"><canvas id="dpCompChart" role="img" aria-label="Comparison bar chart"></canvas></div></div>
-        <div><div class="ctitle">Monthly breakdown Jan–Jul 2026</div>
+        <div><div class="ctitle">Monthly breakdown Jan–Oct 2026</div>
           <div style="position:relative;height:220px"><canvas id="dpMoChart" role="img" aria-label="Monthly breakdown"></canvas></div></div>
       </div>
       <div class="ctitle" style="margin-top:4px">Comparison table</div>
@@ -509,16 +509,16 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly units — last 24 months</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly units — Sep 2024 → Oct 2026</div>
           <div style="position:relative;height:280px"><canvas id="t24VolChart" role="img" aria-label="24 month volume trend"></canvas></div>
         </div>
         <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly market share % — last 24 months</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);margin-bottom:8px">Monthly market share % — Sep 2024 → Oct 2026</div>
           <div style="position:relative;height:280px"><canvas id="t24ShareChart" role="img" aria-label="24 month market share trend"></canvas></div>
         </div>
       </div>
       <div style="margin-top:8px;font-size:10px;color:var(--text3)">
-        Sep 2024 → Sep 2026 · Monthly data · Market share = brand units ÷ total market that month
+        Sep 2024 → Oct 2026 · Monthly data · Market share = brand units ÷ total market that month
       </div>
     </div>
   </div>
@@ -624,72 +624,72 @@ const RAW = {
     {b:'LAMBORGHINI',u:55,cat:'Ultra-Luxury'},{b:'FERRARI',u:31,cat:'Ultra-Luxury'},{b:'ROLLS-ROYCE',u:33,cat:'Ultra-Luxury'},
     {b:'LYNK&CO',u:103,cat:'Premium'},{b:'ASTON MARTIN',u:21,cat:'Ultra-Luxury'},
   ]},
-  2026:{total:96253,brands:[
-    {b:'DACIA',u:19819,cat:'Mainstream'},
-    {b:'TOYOTA',u:9923,cat:'Mainstream'},
-    {b:'SKODA',u:7916,cat:'Mainstream'},
-    {b:'VOLKSWAGEN',u:7071,cat:'Mainstream'},
-    {b:'RENAULT',u:4558,cat:'Mainstream'},
-    {b:'BYD',u:4173,cat:'Mainstream'},
-    {b:'HYUNDAI',u:3741,cat:'Mainstream'},
-    {b:'MERCEDES-BENZ',u:3664,cat:'Luxury'},
-    {b:'BMW',u:3496,cat:'Luxury'},
-    {b:'FORD',u:3448,cat:'Mainstream'},
-    {b:'MG',u:2832,cat:'Mainstream'},
-    {b:'CHERY',u:2794,cat:'Mainstream'},
-    {b:'SUZUKI',u:2399,cat:'Mainstream'},
-    {b:'AUDI',u:2368,cat:'Premium'},
-    {b:'MAZDA',u:2000,cat:'Premium'},
-    {b:'KIA',u:1986,cat:'Mainstream'},
-    {b:'TESLA',u:1583,cat:'Premium'},
-    {b:'PEUGEOT',u:1387,cat:'Mainstream'},
-    {b:'NISSAN',u:1162,cat:'Mainstream'},
-    {b:'GEELY',u:1048,cat:'Mainstream'},
-    {b:'KGM',u:1040,cat:'Mainstream'},
-    {b:'VOLVO',u:1037,cat:'Premium'},
-    {b:'CUPRA',u:931,cat:'Premium'},
-    {b:'CITROEN',u:856,cat:'Mainstream'},
-    {b:'HONDA',u:642,cat:'Mainstream'},
-    {b:'OMODA',u:629,cat:'Mainstream'},
-    {b:'OPEL',u:494,cat:'Mainstream'},
-    {b:'LAND ROVER',u:378,cat:'Luxury'},
-    {b:'PORSCHE',u:349,cat:'Luxury'},
-    {b:'JAECOO',u:349,cat:'Mainstream'},
-    {b:'SEAT',u:323,cat:'Mainstream'},
-    {b:'LEXUS',u:301,cat:'Luxury'},
-    {b:'MINI',u:207,cat:'Premium'},
-    {b:'MITSUBISHI',u:182,cat:'Mainstream'},
-    {b:'FIAT',u:175,cat:'Mainstream'},
-    {b:'LEAPMOTOR',u:143,cat:'Mainstream'},
-    {b:'JEEP',u:136,cat:'Premium'},
-    {b:'SUBARU',u:118,cat:'Premium'},
-    {b:'ZEEKR',u:85,cat:'Premium'},
-    {b:'LYNK&CO',u:82,cat:'Premium'},
-    {b:'ALFA ROMEO',u:69,cat:'Premium'},
-    {b:'DFSK',u:62,cat:'Mainstream'},
-    {b:'LAMBORGHINI',u:51,cat:'Ultra-Luxury'},
+  2026:{total:108174,brands:[
+    {b:'DACIA',u:22633,cat:'Mainstream'},
+    {b:'TOYOTA',u:11370,cat:'Mainstream'},
+    {b:'SKODA',u:8726,cat:'Mainstream'},
+    {b:'VOLKSWAGEN',u:7545,cat:'Mainstream'},
+    {b:'RENAULT',u:5092,cat:'Mainstream'},
+    {b:'BYD',u:4969,cat:'Mainstream'},
+    {b:'HYUNDAI',u:4192,cat:'Mainstream'},
+    {b:'MERCEDES-BENZ',u:4081,cat:'Luxury'},
+    {b:'FORD',u:3978,cat:'Mainstream'},
+    {b:'BMW',u:3838,cat:'Luxury'},
+    {b:'MG',u:3314,cat:'Mainstream'},
+    {b:'CHERY',u:3044,cat:'Mainstream'},
+    {b:'SUZUKI',u:2810,cat:'Mainstream'},
+    {b:'AUDI',u:2579,cat:'Premium'},
+    {b:'MAZDA',u:2236,cat:'Premium'},
+    {b:'KIA',u:2154,cat:'Mainstream'},
+    {b:'TESLA',u:1972,cat:'Premium'},
+    {b:'PEUGEOT',u:1440,cat:'Mainstream'},
+    {b:'GEELY',u:1275,cat:'Mainstream'},
+    {b:'NISSAN',u:1164,cat:'Mainstream'},
+    {b:'VOLVO',u:1154,cat:'Premium'},
+    {b:'KGM',u:1062,cat:'Mainstream'},
+    {b:'CUPRA',u:987,cat:'Premium'},
+    {b:'CITROEN',u:915,cat:'Mainstream'},
+    {b:'OMODA',u:757,cat:'Mainstream'},
+    {b:'HONDA',u:703,cat:'Mainstream'},
+    {b:'OPEL',u:501,cat:'Mainstream'},
+    {b:'JAECOO',u:439,cat:'Mainstream'},
+    {b:'LAND ROVER',u:416,cat:'Luxury'},
+    {b:'PORSCHE',u:387,cat:'Luxury'},
+    {b:'SEAT',u:348,cat:'Mainstream'},
+    {b:'LEXUS',u:342,cat:'Luxury'},
+    {b:'MINI',u:236,cat:'Premium'},
+    {b:'MITSUBISHI',u:202,cat:'Mainstream'},
+    {b:'FIAT',u:188,cat:'Mainstream'},
+    {b:'LEAPMOTOR',u:165,cat:'Mainstream'},
+    {b:'JEEP',u:143,cat:'Premium'},
+    {b:'SUBARU',u:125,cat:'Premium'},
+    {b:'ZEEKR',u:103,cat:'Premium'},
+    {b:'LYNK&CO',u:97,cat:'Premium'},
+    {b:'ALFA ROMEO',u:71,cat:'Premium'},
+    {b:'DFSK',u:68,cat:'Mainstream'},
+    {b:'LAMBORGHINI',u:54,cat:'Ultra-Luxury'},
+    {b:'XPENG',u:50,cat:'Premium'},
+    {b:'FERRARI',u:42,cat:'Ultra-Luxury'},
     {b:'DS',u:36,cat:'Premium'},
-    {b:'FERRARI',u:35,cat:'Ultra-Luxury'},
     {b:'ROLLS-ROYCE',u:31,cat:'Ultra-Luxury'},
-    {b:'XPENG',u:31,cat:'Premium'},
     {b:'BENTLEY',u:28,cat:'Ultra-Luxury'},
-    {b:'BAIC',u:21,cat:'Mainstream'},
-    {b:'ASTON MARTIN',u:13,cat:'Ultra-Luxury'},
+    {b:'BAIC',u:25,cat:'Mainstream'},
+    {b:'ASTON MARTIN',u:14,cat:'Ultra-Luxury'},
+    {b:'LEPAS',u:13,cat:'Mainstream'},
     {b:'MASERATI',u:11,cat:'Luxury'},
     {b:'SWM',u:10,cat:'Mainstream'},
+    {b:'SERES',u:9,cat:'Mainstream'},
     {b:'FORTHING',u:7,cat:'Mainstream'},
+    {b:'JETOUR',u:5,cat:'Mainstream'},
     {b:'CADILLAC',u:4,cat:'Luxury'},
     {b:'JAC',u:3,cat:'Mainstream'},
-    {b:'SERES',u:3,cat:'Mainstream'},
     {b:'INEOS',u:2,cat:'Luxury'},
     {b:'MCLAREN',u:2,cat:'Ultra-Luxury'},
     {b:'LOTUS',u:2,cat:'Luxury'},
     {b:'CHEVROLET',u:2,cat:'Mainstream'},
     {b:'MORGAN',u:1,cat:'Luxury'},
     {b:'LUCID MOTORS',u:1,cat:'Premium'},
-    {b:'AVANTIER',u:1,cat:'Premium'},
-    {b:'JETOUR',u:1,cat:'Mainstream'},
-    {b:'LEPAS',u:1,cat:'Mainstream'}
+    {b:'AVANTIER',u:1,cat:'Premium'}
   ]}
 };
 
@@ -707,54 +707,54 @@ const JM25={total:53515,brands:[
   {b:'ASTON MARTIN',u:10},{b:'LYNK&CO',u:21},{b:'BYD',u:4},{b:'CHERY',u:0},
 ]};;
 
-const JUL25_YTD={total:107543,brands:[
-  {b:'DACIA',u:31002},
-  {b:'TOYOTA',u:10245},
-  {b:'SKODA',u:8281},
-  {b:'VOLKSWAGEN',u:7047},
-  {b:'RENAULT',u:6876},
-  {b:'HYUNDAI',u:6814},
-  {b:'FORD',u:4667},
-  {b:'BMW',u:3927},
-  {b:'MERCEDES-BENZ',u:3861},
-  {b:'SUZUKI',u:3165},
-  {b:'KIA',u:2530},
-  {b:'MG',u:2227},
-  {b:'AUDI',u:2121},
-  {b:'KGM',u:1919},
-  {b:'PEUGEOT',u:1851},
-  {b:'MAZDA',u:1662},
-  {b:'VOLVO',u:1056},
-  {b:'CITROEN',u:872},
-  {b:'CUPRA',u:814},
-  {b:'TESLA',u:646},
-  {b:'JEEP',u:592},
-  {b:'OPEL',u:574},
-  {b:'HONDA',u:557},
-  {b:'LAND ROVER',u:430},
-  {b:'GEELY',u:429},
-  {b:'PORSCHE',u:402},
-  {b:'NISSAN',u:393},
-  {b:'LEXUS',u:323},
-  {b:'MITSUBISHI',u:310},
-  {b:'FIAT',u:299},
-  {b:'SEAT',u:269},
-  {b:'MINI',u:269},
-  {b:'ALFA ROMEO',u:156},
-  {b:'LEAPMOTOR',u:148},
-  {b:'BYD',u:145},
-  {b:'SUBARU',u:102},
+const JUL25_YTD={total:120244,brands:[
+  {b:'DACIA',u:34441},
+  {b:'TOYOTA',u:11577},
+  {b:'SKODA',u:9154},
+  {b:'VOLKSWAGEN',u:7807},
+  {b:'RENAULT',u:7781},
+  {b:'HYUNDAI',u:7478},
+  {b:'FORD',u:5331},
+  {b:'BMW',u:4347},
+  {b:'MERCEDES-BENZ',u:4291},
+  {b:'SUZUKI',u:3398},
+  {b:'KIA',u:2770},
+  {b:'MG',u:2567},
+  {b:'AUDI',u:2476},
+  {b:'KGM',u:2077},
+  {b:'PEUGEOT',u:2041},
+  {b:'MAZDA',u:1799},
+  {b:'VOLVO',u:1208},
+  {b:'CUPRA',u:936},
+  {b:'CITROEN',u:924},
+  {b:'TESLA',u:905},
+  {b:'OPEL',u:649},
+  {b:'JEEP',u:627},
+  {b:'HONDA',u:608},
+  {b:'NISSAN',u:603},
+  {b:'GEELY',u:496},
+  {b:'LAND ROVER',u:477},
+  {b:'PORSCHE',u:434},
+  {b:'LEXUS',u:364},
+  {b:'MITSUBISHI',u:360},
+  {b:'FIAT',u:327},
+  {b:'BYD',u:297},
+  {b:'SEAT',u:296},
+  {b:'MINI',u:295},
+  {b:'LEAPMOTOR',u:183},
+  {b:'ALFA ROMEO',u:169},
+  {b:'SUBARU',u:117},
   {b:'DS',u:99},
-  {b:'DFSK',u:84},
-  {b:'LYNK&CO',u:59},
+  {b:'DFSK',u:88},
+  {b:'CHERY',u:76},
+  {b:'LYNK&CO',u:70},
   {b:'BENTLEY',u:50},
-  {b:'LAMBORGHINI',u:44},
-  {b:'BAIC',u:43},
-  {b:'CHERY',u:35},
+  {b:'LAMBORGHINI',u:49},
+  {b:'BAIC',u:49},
+  {b:'FERRARI',u:27},
   {b:'FORTHING',u:25},
   {b:'INEOS',u:24},
   {b:'ROLLS-ROYCE',u:24},
-  {b:'FERRARI',u:22},
   {b:'MASERATI',u:17},
   {b:'ASTON MARTIN',u:15},
   {b:'CADILLAC',u:6},
@@ -836,10 +836,11 @@ const MONTHLY26_JUL={total:11633,brands:[
 ]};
 const MONTHLY26_AUG={total:9470,brands:[{b:'DACIA',u:2142},{b:'TOYOTA',u:1229},{b:'SKODA',u:845},{b:'VOLKSWAGEN',u:700},{b:'BYD',u:653},{b:'BMW',u:428},{b:'MERCEDES-BENZ',u:394},{b:'RENAULT',u:373},{b:'MG',u:345},{b:'FORD',u:321},{b:'HYUNDAI',u:287},{b:'CHERY',u:225},{b:'SUZUKI',u:225},{b:'AUDI',u:170},{b:'GEELY',u:117},{b:'CUPRA',u:103},{b:'KIA',u:88},{b:'MAZDA',u:86},{b:'VOLVO',u:86},{b:'OMODA',u:74},{b:'JAECOO',u:47},{b:'HONDA',u:47},{b:'CITROEN',u:46},{b:'PORSCHE',u:41},{b:'SEAT',u:36},{b:'KGM',u:34},{b:'FIAT',u:32},{b:'JEEP',u:32},{b:'LEXUS',u:30},{b:'PEUGEOT',u:30},{b:'MITSUBISHI',u:27},{b:'MINI',u:26},{b:'LAND ROVER',u:22},{b:'ALFA ROMEO',u:16},{b:'LEAPMOTOR',u:14},{b:'DFSK',u:13},{b:'LYNK&CO',u:12},{b:'XPENG',u:12},{b:'ZEEKR',u:11},{b:'OPEL',u:10},{b:'SUBARU',u:10},{b:'LAMBORGHINI',u:6},{b:'BENTLEY',u:5},{b:'TESLA',u:5},{b:'FERRARI',u:5},{b:'BAIC',u:3},{b:'NISSAN',u:3},{b:'SWM',u:2},{b:'LEPAS',u:1},{b:'MASERATI',u:1}]};
 const MONTHLY26_SEP={total:10947,brands:[{b:'DACIA',u:2705},{b:'TOYOTA',u:1435},{b:'SKODA',u:795},{b:'BYD',u:708},{b:'VOLKSWAGEN',u:640},{b:'RENAULT',u:639},{b:'MG',u:464},{b:'MERCEDES-BENZ',u:426},{b:'BMW',u:390},{b:'HYUNDAI',u:345},{b:'FORD',u:323},{b:'SUZUKI',u:298},{b:'CHERY',u:217},{b:'AUDI',u:203},{b:'OMODA',u:203},{b:'GEELY',u:185},{b:'MAZDA',u:164},{b:'KIA',u:126},{b:'VOLVO',u:104},{b:'PEUGEOT',u:67},{b:'CUPRA',u:61},{b:'HONDA',u:56},{b:'LEXUS',u:43},{b:'JAECOO',u:39},{b:'PORSCHE',u:31},{b:'KGM',u:30},{b:'LAND ROVER',u:27},{b:'SEAT',u:24},{b:'MITSUBISHI',u:20},{b:'MINI',u:19},{b:'TESLA',u:19},{b:'CITROEN',u:18},{b:'FIAT',u:15},{b:'ZEEKR',u:15},{b:'LEAPMOTOR',u:14},{b:'XPENG',u:12},{b:'DFSK',u:12},{b:'SUBARU',u:11},{b:'JEEP',u:7},{b:'OPEL',u:5},{b:'LYNK&CO',u:5},{b:'LAMBORGHINI',u:4},{b:'FERRARI',u:4},{b:'BAIC',u:3},{b:'SERES',u:3},{b:'ROLLS-ROYCE',u:3},{b:'BENTLEY',u:3},{b:'SWM',u:3},{b:'ALFA ROMEO',u:2},{b:'NISSAN',u:2}]};
+const MONTHLY26_OCT={total:11921,brands:[{b:'DACIA',u:2814},{b:'TOYOTA',u:1447},{b:'SKODA',u:810},{b:'BYD',u:796},{b:'RENAULT',u:534},{b:'FORD',u:530},{b:'MG',u:482},{b:'VOLKSWAGEN',u:474},{b:'HYUNDAI',u:451},{b:'MERCEDES-BENZ',u:417},{b:'SUZUKI',u:411},{b:'TESLA',u:389},{b:'BMW',u:342},{b:'CHERY',u:250},{b:'MAZDA',u:236},{b:'GEELY',u:227},{b:'AUDI',u:211},{b:'KIA',u:168},{b:'OMODA',u:128},{b:'VOLVO',u:117},{b:'JAECOO',u:90},{b:'HONDA',u:61},{b:'CITROEN',u:59},{b:'CUPRA',u:56},{b:'PEUGEOT',u:53},{b:'LEXUS',u:41},{b:'LAND ROVER',u:38},{b:'PORSCHE',u:38},{b:'MINI',u:29},{b:'SEAT',u:25},{b:'LEAPMOTOR',u:22},{b:'KGM',u:22},{b:'MITSUBISHI',u:20},{b:'XPENG',u:19},{b:'ZEEKR',u:18},{b:'LYNK&CO',u:15},{b:'FIAT',u:13},{b:'LEPAS',u:12},{b:'OPEL',u:7},{b:'FERRARI',u:7},{b:'JEEP',u:7},{b:'SUBARU',u:7},{b:'SERES',u:6},{b:'DFSK',u:6},{b:'JETOUR',u:4},{b:'BAIC',u:4},{b:'LAMBORGHINI',u:3},{b:'ALFA ROMEO',u:2},{b:'NISSAN',u:2},{b:'ASTON MARTIN',u:1}]};
 const MONTHS26=[
   {mo:'Jan',data:MONTHLY26.Jan},{mo:'Feb',data:MONTHLY26.Feb},
   {mo:'Mar',data:MONTHLY26.Mar},{mo:'Apr',data:MONTHLY26.Apr},{mo:'May',data:MONTHLY26.May},
-  {mo:'Jun',data:MONTHLY26_JUN},{mo:'Jul',data:MONTHLY26_JUL},{mo:'Aug',data:MONTHLY26_AUG},{mo:'Sep',data:MONTHLY26_SEP}
+  {mo:'Jun',data:MONTHLY26_JUN},{mo:'Jul',data:MONTHLY26_JUL},{mo:'Aug',data:MONTHLY26_AUG},{mo:'Sep',data:MONTHLY26_SEP},{mo:'Oct',data:MONTHLY26_OCT}
 ];
 
 const CAT={
@@ -854,7 +855,7 @@ const PERIOD_META={
   2023:{total:142783,label:'2023',hasPrev:false,prevLabel:null},
   2024:{total:148596,label:'2024',hasPrev:true, prevLabel:'2023',prevTotal:142783,prevSrc:2023},
   2025:{total:155251,label:'2025',hasPrev:true, prevLabel:'2024',prevTotal:148596,prevSrc:2024},
-  2026:{total:96253, label:'Jan–Sep 2026',hasPrev:true,prevLabel:'Jan–Sep 2025',prevTotal:107543,prevSrc:'jul25'},
+  2026:{total:108174, label:'Jan–Oct 2026',hasPrev:true,prevLabel:'Jan–Oct 2025',prevTotal:120244,prevSrc:'jul25'},
 };
 
 function getU(year,brand){
@@ -1128,7 +1129,7 @@ function openBrand(brand){
 
   document.getElementById('dpKrow').innerHTML=`
     <div class="kpi"><div class="kpi-lbl">2025 full year</div><div class="kpi-val">${u25.toLocaleString()}</div><div class="kpi-sub">${s25}% market share</div></div>
-    <div class="kpi"><div class="kpi-lbl">Jan–Jul 2026</div><div class="kpi-val">${u26.toLocaleString()}</div><div class="kpi-sub">${s26}% share${gYTD!==null?`<br><span class="delta ${gYTD>=0?'up':'down'}">${gYTD>=0?'+':''}${gYTD}% vs Jan–Jul 2025</span>`:''}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Jan–Oct 2026</div><div class="kpi-val">${u26.toLocaleString()}</div><div class="kpi-sub">${s26}% share${gYTD!==null?`<br><span class="delta ${gYTD>=0?'up':'down'}">${gYTD>=0?'+':''}${gYTD}% vs Jan–Oct 2025</span>`:''}</div></div>
     <div class="kpi"><div class="kpi-lbl">2024→2025</div><div class="kpi-val" style="font-size:16px">${g2425!==null?(g2425>=0?'+':'')+g2425+'%':'n/a'}</div></div>
     <div class="kpi"><div class="kpi-lbl">2023→2024</div><div class="kpi-val" style="font-size:16px">${g2324!==null?(g2324>=0?'+':'')+g2324+'%':'n/a'}</div></div>`;
 
@@ -1160,8 +1161,8 @@ function openBrand(brand){
     ['2023',u23,RAW[2023].total,null],
     ['2024',u24,RAW[2024].total,u23>0?((u24-u23)/u23*100).toFixed(1):null],
     ['2025 (full year)',u25,RAW[2025].total,u24>0?((u25-u24)/u24*100).toFixed(1):null],
-    ['Jan–Jul 2025',u25ytd,JUL25_YTD.total,null],
-    ['Jan–Jul 2026',u26,RAW[2026].total,u25ytd>0?((u26-u25ytd)/u25ytd*100).toFixed(1):null],
+    ['Jan–Oct 2025',u25ytd,JUL25_YTD.total,null],
+    ['Jan–Oct 2026',u26,RAW[2026].total,u25ytd>0?((u26-u25ytd)/u25ytd*100).toFixed(1):null],
   ];
   document.getElementById('dpTable').innerHTML=`
     <thead><tr><th>Period</th><th>Units</th><th>Market share</th><th>YoY change</th></tr></thead>
@@ -1176,7 +1177,7 @@ function openBrand(brand){
   if(dpComp)dpComp.destroy();
   dpComp=new Chart(document.getElementById('dpCompChart'),{
     type:'bar',
-    data:{labels:['Jan–Jul 2025','Jan–Jul 2026'],datasets:[{
+    data:{labels:['Jan–Oct 2025','Jan–Oct 2026'],datasets:[{
       data:[u25ytd,u26],backgroundColor:[c.fill+'55',c.fill],borderWidth:0,borderRadius:4
     }]},
     options:{responsive:true,maintainAspectRatio:false,
@@ -1196,7 +1197,7 @@ function openBrand(brand){
   });
 
   document.getElementById('dpCompTable').innerHTML=`
-    <thead><tr><th>Metric</th><th>Jan–Jul 2025</th><th>Jan–Jul 2026</th><th>Change</th></tr></thead>
+    <thead><tr><th>Metric</th><th>Jan–Oct 2025</th><th>Jan–Oct 2026</th><th>Change</th></tr></thead>
     <tbody>
       <tr class="hl"><td>Units</td><td>${u25ytd.toLocaleString()}</td><td>${u26.toLocaleString()}</td><td>${u25ytd>0?`<span class="delta ${((u26-u25ytd)/u25ytd*100)>=0?'up':'down'}">${((u26-u25ytd)/u25ytd*100).toFixed(1)}%</span>`:'—'}</td></tr>
       <tr><td>Market share</td><td>${(JUL25_YTD.total>0?(u25ytd/JUL25_YTD.total*100):0).toFixed(2)}%</td><td>${(RAW[2026].total>0?(u26/RAW[2026].total*100):0).toFixed(2)}%</td><td><span class="delta ${(u26/RAW[2026].total-u25ytd/JUL25_YTD.total)>=0?'up':'down'}">${((u26/RAW[2026].total-u25ytd/JUL25_YTD.total)*100).toFixed(2)} pp</span></td></tr>
@@ -1282,7 +1283,7 @@ const CUST_PERIODS = [
   {key:'2023', label:'2023',    mktTotal:142783, src:2023},
   {key:'2024', label:'2024',    mktTotal:148596, src:2024},
   {key:'2025', label:'2025',    mktTotal:155251, src:2025},
-  {key:'ytd', label:'YTD 2026 (Jan–Sep)',mktTotal:96253, src:2026},
+  {key:'ytd', label:'YTD 2026 (Jan–Oct)',mktTotal:108174, src:2026},
 ];
 
 let custState = {
@@ -1805,7 +1806,7 @@ function renderIntelPanel(){
   const pm = PERIOD_META[state.year];
   const curSrc = state.year===2026 ? RAW[2026].brands : RAW[state.year].brands;
   const curTotal = pm.total;
-  const prevSrc = pm.hasPrev ? (pm.prevSrc==='jm25'?JM25.brands:RAW[pm.prevSrc].brands) : null;
+  const prevSrc = pm.hasPrev ? getSrc(pm.prevSrc) : null;
   const prevTotal = pm.prevTotal||0;
 
   document.getElementById('intelPeriodLabel').textContent = pm.hasPrev
@@ -1873,8 +1874,8 @@ function renderIntelPanel(){
       <div class="kpi"><div class="kpi-lbl">Total market</div><div class="kpi-val">${curTotal.toLocaleString()}</div><div class="kpi-sub">${pm.label}</div>${marketDeltaHtml}</div>
       <div class="kpi"><div class="kpi-lbl">Market leader</div><div class="kpi-val" style="font-size:14px">${top1.b}</div><div class="kpi-sub">${top1.u.toLocaleString()} · ${top1share}%</div></div>
       <div class="kpi"><div class="kpi-lbl">Brands tracked</div><div class="kpi-val">${top35cur.length}</div><div class="kpi-sub">top 50 by volume</div></div>
-      ${pm.hasPrev?`<div class="kpi"><div class="kpi-lbl">Winners (top 35)</div><div class="kpi-val up" style="font-size:16px">${truMovers.filter(d=>d.pct>0).length}</div><div class="kpi-sub">brands grew</div></div>
-      <div class="kpi"><div class="kpi-lbl">Losers (top 35)</div><div class="kpi-val down" style="font-size:16px">${truMovers.filter(d=>d.pct<0).length}</div><div class="kpi-sub">brands declined</div></div>`:''}
+      ${pm.hasPrev?`<div class="kpi"><div class="kpi-lbl">Winners (top 50)</div><div class="kpi-val up" style="font-size:16px">${truMovers.filter(d=>d.pct>0).length}</div><div class="kpi-sub">brands grew</div></div>
+      <div class="kpi"><div class="kpi-lbl">Losers (top 50)</div><div class="kpi-val down" style="font-size:16px">${truMovers.filter(d=>d.pct<0).length}</div><div class="kpi-sub">brands declined</div></div>`:''}
     </div>
   `+`
     ${pm.hasPrev ? `
@@ -2506,45 +2507,45 @@ document.querySelectorAll('.eu-tab').forEach(t=>{
 
 // ── 24-MONTH TREND DATA ────────────────────────────────────────────────────────
 const MONTHLY_24 = {
-  labels: ["Sep 24", "Oct 24", "Nov 24", "Dec 24", "Jan 25", "Feb 25", "Mar 25", "Apr 25", "May 25", "Jun 25", "Jul 25", "Aug 25", "Sep 25", "Oct 25", "Nov 25", "Dec 25", "Jan 26", "Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26", "Jul 26", "Aug 26", "Sep 26"],
-  keys: ["2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"],
-  totals: [8870, 11428, 10071, 13316, 11782, 11697, 9792, 9847, 10406, 10469, 16210, 15016, 12359, 12719, 13793, 21182, 7581, 8546, 9850, 9588, 11219, 16008, 11633, 9470, 10947],
+  labels: ["Sep 24", "Oct 24", "Nov 24", "Dec 24", "Jan 25", "Feb 25", "Mar 25", "Apr 25", "May 25", "Jun 25", "Jul 25", "Aug 25", "Sep 25", "Oct 25", "Nov 25", "Dec 25", "Jan 26", "Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26", "Jul 26", "Aug 26", "Sep 26", "Oct 26"],
+  keys: ["2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"],
+  totals: [8870, 11428, 10071, 13316, 11782, 11697, 9792, 9847, 10406, 10469, 16210, 15016, 12359, 12701, 13793, 21182, 7581, 8546, 9850, 9588, 11219, 16008, 11633, 9470, 10947, 11921],
   brands: {
-    'DACIA': [2129, 2974, 2825, 4493, 4010, 3532, 2359, 2325, 2649, 2744, 5106, 4153, 4124, 3439, 4519, 6796, 1442, 1685, 1856, 1711, 2132, 2860, 3286, 2142, 2705],
-    'TOYOTA': [818, 1040, 888, 833, 944, 1005, 925, 997, 967, 969, 1757, 1634, 1047, 1332, 1137, 1704, 756, 894, 922, 1062, 1139, 1248, 1238, 1229, 1435],
-    'SKODA': [626, 1114, 778, 1156, 892, 878, 869, 842, 909, 938, 1259, 798, 896, 873, 997, 1148, 690, 865, 990, 775, 910, 1244, 802, 845, 795],
-    'VOLKSWAGEN': [595, 769, 812, 882, 831, 842, 849, 642, 801, 721, 961, 740, 660, 760, 711, 1043, 646, 610, 922, 913, 811, 1037, 792, 700, 640],
-    'RENAULT': [473, 639, 565, 1236, 704, 738, 525, 565, 631, 580, 976, 1018, 1139, 905, 1021, 2638, 254, 583, 454, 366, 389, 964, 536, 373, 639],
-    'HYUNDAI': [846, 961, 801, 699, 677, 563, 557, 499, 576, 544, 1130, 1578, 690, 664, 752, 1122, 390, 386, 461, 396, 435, 745, 296, 287, 345],
-    'FORD': [374, 507, 471, 448, 419, 535, 450, 423, 473, 421, 660, 735, 551, 664, 646, 812, 333, 359, 358, 353, 427, 588, 386, 321, 323],
-    'MERCEDES-BENZ': [367, 444, 332, 461, 437, 404, 368, 468, 431, 467, 517, 411, 358, 430, 411, 361, 397, 358, 291, 445, 407, 386, 560, 394, 426],
-    'BMW': [350, 449, 270, 406, 447, 438, 364, 488, 483, 368, 401, 565, 373, 420, 392, 491, 385, 381, 375, 394, 338, 454, 351, 428, 390],
-    'SUZUKI': [222, 297, 288, 327, 354, 388, 358, 322, 318, 299, 560, 423, 143, 233, 256, 300, 250, 285, 243, 232, 262, 297, 307, 225, 298],
-    'MG': [50, 203, 233, 250, 232, 212, 196, 208, 253, 226, 307, 313, 280, 340, 303, 526, 92, 149, 258, 322, 477, 459, 266, 345, 464],
-    'KIA': [191, 387, 321, 445, 212, 196, 334, 318, 210, 194, 379, 416, 271, 240, 181, 243, 143, 130, 259, 201, 344, 581, 114, 88, 126],
-    'AUDI': [241, 270, 221, 205, 220, 249, 176, 242, 187, 271, 290, 238, 248, 355, 370, 324, 232, 226, 246, 348, 371, 318, 254, 170, 203],
-    'KGM': [144, 225, 181, 161, 221, 216, 211, 180, 233, 209, 242, 227, 180, 158, 188, 630, 59, 74, 67, 0, 93, 442, 160, 34, 30],
-    'MAZDA': [54, 92, 150, 150, 151, 160, 193, 205, 182, 148, 216, 288, 119, 137, 190, 218, 121, 145, 202, 260, 310, 576, 136, 86, 164],
-    'PEUGEOT': [333, 140, 164, 178, 75, 306, 214, 197, 97, 309, 266, 229, 158, 190, 163, 107, 215, 250, 112, 196, 250, 212, 55, 30, 67],
-    'BYD': [1, 0, 0, 1, 1, 0, 2, 0, 1, 1, 0, 28, 112, 152, 198, 405, 312, 252, 279, 344, 459, 494, 672, 653, 708],
-    'TESLA': [186, 164, 86, 201, 125, 56, 39, 70, 47, 25, 61, 121, 102, 259, 121, 89, 232, 192, 121, 107, 149, 658, 100, 5, 19],
-    'CHERY': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9, 25, 41, 107, 281, 212, 318, 340, 356, 381, 404, 341, 225, 217],
-    'VOLVO': [65, 101, 91, 134, 105, 112, 93, 88, 114, 165, 114, 119, 146, 152, 112, 157, 143, 126, 118, 98, 116, 110, 136, 86, 104],
-    'CUPRA': [75, 85, 85, 74, 75, 73, 77, 99, 102, 90, 110, 107, 81, 122, 133, 102, 79, 69, 110, 108, 93, 251, 57, 103, 61],
-    'NISSAN': [19, 48, 39, 37, 79, 57, 32, 41, 35, 35, 62, 15, 37, 210, 154, 273, 67, 67, 570, 101, 0, 320, 1, 3, 2],
-    'CITROEN': [89, 24, 19, 103, 44, 160, 82, 66, 139, 107, 106, 116, 52, 52, 85, 156, 0, 38, 0, 122, 121, 403, 63, 46, 18],
-    'OPEL': [205, 26, 70, 23, 16, 30, 50, 38, 106, 108, 42, 106, 78, 75, 130, 165, 0, 0, 113, 185, 83, 38, 19, 10, 5],
-    'HONDA': [53, 70, 57, 45, 43, 50, 34, 41, 45, 58, 102, 127, 57, 51, 56, 115, 0, 0, 86, 86, 80, 194, 36, 47, 56],
-    'GEELY': [5, 5, 10, 6, 31, 31, 44, 43, 38, 54, 55, 67, 66, 67, 78, 53, 57, 68, 97, 107, 142, 131, 144, 117, 185],
-    'LAND ROVER': [47, 52, 31, 30, 47, 56, 48, 54, 31, 32, 50, 71, 41, 47, 38, 55, 0, 36, 0, 0, 0, 93, 28, 22, 27],
-    'PORSCHE': [37, 47, 35, 26, 34, 53, 40, 42, 53, 47, 51, 52, 30, 32, 47, 43, 35, 0, 0, 0, 0, 56, 40, 41, 31],
-    'SEAT': [18, 29, 22, 27, 20, 18, 29, 70, 32, 29, 29, 27, 15, 27, 35, 81, 0, 0, 0, 0, 0, 62, 65, 36, 24],
-    'LEAPMOTOR': [0, 0, 3, 14, 47, 52, 36, 3, 0, 3, 5, 1, 1, 35, 26, 94, 39, 0, 0, 0, 0, 5, 13, 14, 14],
-    'LEXUS': [35, 33, 24, 39, 36, 21, 25, 22, 41, 53, 56, 32, 37, 41, 43, 55, 0, 0, 0, 0, 0, 52, 41, 30, 43],
-    'MINI': [15, 33, 30, 32, 32, 33, 32, 33, 32, 24, 30, 20, 33, 26, 15, 7, 0, 0, 0, 0, 0, 35, 34, 26, 19],
-    'JEEP': [120, 89, 77, 77, 117, 99, 61, 67, 35, 49, 113, 30, 21, 35, 47, 86, 0, 0, 0, 0, 0, 23, 8, 32, 7],
-    'OMODA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 54, 131, 74, 203],
-    'JAECOO': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 41, 56, 47, 39],
+    'DACIA': [2129, 2974, 2825, 4493, 4010, 3532, 2359, 2325, 2649, 2744, 5106, 4153, 4124, 3439, 4519, 6796, 1442, 1685, 1856, 1711, 2132, 2860, 3286, 2142, 2705, 2814],
+    'TOYOTA': [818, 1040, 888, 833, 944, 1005, 925, 997, 967, 969, 1757, 1634, 1047, 1332, 1137, 1704, 756, 894, 922, 1062, 1139, 1248, 1238, 1229, 1435, 1447],
+    'SKODA': [626, 1114, 778, 1156, 892, 878, 869, 842, 909, 938, 1259, 798, 896, 873, 997, 1148, 690, 865, 990, 775, 910, 1244, 802, 845, 795, 810],
+    'VOLKSWAGEN': [595, 769, 812, 882, 831, 842, 849, 642, 801, 721, 961, 740, 660, 760, 711, 1043, 646, 610, 922, 913, 811, 1037, 792, 700, 640, 474],
+    'RENAULT': [473, 639, 565, 1236, 704, 738, 525, 565, 631, 580, 976, 1018, 1139, 905, 1021, 2638, 254, 583, 454, 366, 389, 964, 536, 373, 639, 534],
+    'HYUNDAI': [846, 961, 801, 699, 677, 563, 557, 499, 576, 544, 1130, 1578, 690, 664, 752, 1122, 390, 386, 461, 396, 435, 745, 296, 287, 345, 451],
+    'FORD': [374, 507, 471, 448, 419, 535, 450, 423, 473, 421, 660, 735, 551, 664, 646, 812, 333, 359, 358, 353, 427, 588, 386, 321, 323, 530],
+    'MERCEDES-BENZ': [367, 444, 332, 461, 437, 404, 368, 468, 431, 467, 517, 411, 358, 430, 411, 361, 397, 358, 291, 445, 407, 386, 560, 394, 426, 417],
+    'BMW': [350, 449, 270, 406, 447, 438, 364, 488, 483, 368, 401, 565, 373, 420, 392, 491, 385, 381, 375, 394, 338, 454, 351, 428, 390, 342],
+    'SUZUKI': [222, 297, 288, 327, 354, 388, 358, 322, 318, 299, 560, 423, 143, 233, 256, 300, 250, 285, 243, 232, 262, 297, 307, 225, 298, 411],
+    'MG': [50, 203, 233, 250, 232, 212, 196, 208, 253, 226, 307, 313, 280, 340, 303, 526, 92, 149, 258, 322, 477, 459, 266, 345, 464, 482],
+    'KIA': [191, 387, 321, 445, 212, 196, 334, 318, 210, 194, 379, 416, 271, 240, 181, 243, 143, 130, 259, 201, 344, 581, 114, 88, 126, 168],
+    'AUDI': [241, 270, 221, 205, 220, 249, 176, 242, 187, 271, 290, 238, 248, 355, 370, 324, 232, 226, 246, 348, 371, 318, 254, 170, 203, 211],
+    'KGM': [144, 225, 181, 161, 221, 216, 211, 180, 233, 209, 242, 227, 180, 158, 188, 630, 59, 74, 67, 0, 93, 442, 160, 34, 30, 22],
+    'MAZDA': [54, 92, 150, 150, 151, 160, 193, 205, 182, 148, 216, 288, 119, 137, 190, 218, 121, 145, 202, 260, 310, 576, 136, 86, 164, 236],
+    'PEUGEOT': [333, 140, 164, 178, 75, 306, 214, 197, 97, 309, 266, 229, 158, 190, 163, 107, 215, 250, 112, 196, 250, 212, 55, 30, 67, 53],
+    'BYD': [1, 0, 0, 1, 1, 0, 2, 0, 1, 1, 0, 28, 112, 152, 198, 405, 312, 252, 279, 344, 459, 494, 672, 653, 708, 796],
+    'TESLA': [186, 164, 86, 201, 125, 56, 39, 70, 47, 25, 61, 121, 102, 259, 121, 89, 232, 192, 121, 107, 149, 658, 100, 5, 19, 389],
+    'CHERY': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9, 25, 41, 107, 281, 212, 318, 340, 356, 381, 404, 341, 225, 217, 250],
+    'VOLVO': [65, 101, 91, 134, 105, 112, 93, 88, 114, 165, 114, 119, 146, 152, 112, 157, 143, 126, 118, 98, 116, 110, 136, 86, 104, 117],
+    'CUPRA': [75, 85, 85, 74, 75, 73, 77, 99, 102, 90, 110, 107, 81, 122, 133, 102, 79, 69, 110, 108, 93, 251, 57, 103, 61, 56],
+    'NISSAN': [19, 48, 39, 37, 79, 57, 32, 41, 35, 35, 62, 15, 37, 210, 154, 273, 67, 67, 570, 101, 0, 320, 1, 3, 2, 2],
+    'CITROEN': [89, 24, 19, 103, 44, 160, 82, 66, 139, 107, 106, 116, 52, 52, 85, 156, 0, 38, 0, 122, 121, 403, 63, 46, 18, 59],
+    'OPEL': [205, 26, 70, 23, 16, 30, 50, 38, 106, 108, 42, 106, 78, 75, 130, 165, 0, 0, 113, 185, 83, 38, 19, 10, 5, 7],
+    'HONDA': [53, 70, 57, 45, 43, 50, 34, 41, 45, 58, 102, 127, 57, 51, 56, 115, 0, 0, 86, 86, 80, 194, 36, 47, 56, 61],
+    'GEELY': [5, 5, 10, 6, 31, 31, 44, 43, 38, 54, 55, 67, 66, 67, 78, 53, 57, 68, 97, 107, 142, 131, 144, 117, 185, 227],
+    'LAND ROVER': [47, 52, 31, 30, 47, 56, 48, 54, 31, 32, 50, 71, 41, 47, 38, 55, 0, 36, 0, 0, 0, 93, 28, 22, 27, 38],
+    'PORSCHE': [37, 47, 35, 26, 34, 53, 40, 42, 53, 47, 51, 52, 30, 32, 47, 43, 35, 0, 0, 0, 0, 56, 40, 41, 31, 38],
+    'SEAT': [18, 29, 22, 27, 20, 18, 29, 70, 32, 29, 29, 27, 15, 27, 35, 81, 0, 0, 0, 0, 0, 62, 65, 36, 24, 25],
+    'LEAPMOTOR': [0, 0, 3, 14, 47, 52, 36, 3, 0, 3, 5, 1, 1, 35, 26, 94, 39, 0, 0, 0, 0, 5, 13, 14, 14, 22],
+    'LEXUS': [35, 33, 24, 39, 36, 21, 25, 22, 41, 53, 56, 32, 37, 41, 43, 55, 0, 0, 0, 0, 0, 52, 41, 30, 43, 41],
+    'MINI': [15, 33, 30, 32, 32, 33, 32, 33, 32, 24, 30, 20, 33, 26, 15, 7, 0, 0, 0, 0, 0, 35, 34, 26, 19, 29],
+    'JEEP': [120, 89, 77, 77, 117, 99, 61, 67, 35, 49, 113, 30, 21, 35, 47, 86, 0, 0, 0, 0, 0, 23, 8, 32, 7, 7],
+    'OMODA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 54, 131, 74, 203, 128],
+    'JAECOO': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 41, 56, 47, 39, 90],
   }
 };
 
@@ -2815,7 +2816,7 @@ function renderGermanyTab(){
     <div id="detab-2026h1" style="display:none">
       <div style="font-size:11px;color:var(--text3);margin-bottom:8px">
         Germany Jan–Jun 2026 (KBA, H1 2026: 1,484,393 units, +5.8%). Previous = H1 2025 estimate from % change figures.
-        Note: Romania H1 2026 data not directly available — use Jan–Sep YTD tab for Romania 2026 data.
+        Note: Romania H1 2026 data not directly available — use the Romania YTD view for Romania 2026 data.
       </div>
       <div style="overflow-x:auto">
         <table class="de-table">
@@ -2888,10 +2889,10 @@ function drawGermanyCharts(){
   deStructChart = new Chart(sc,{
     type:'bar',
     data:{
-      labels:['2024','2025','2026 H1'],
+      labels:['2024','2025','2026 YTD'],
       datasets:[
         {label:'🇩🇪 Germany',data:[2817331,2857591,1484393],backgroundColor:['#1a4d8f88','#1a4d8f','#1a4d8fcc'],borderRadius:4,borderWidth:0,yAxisID:'y'},
-        {label:'🇷🇴 Romania',data:[148596,155251,96253],backgroundColor:['#8a582888','#8a5828','#8a5828cc'],borderRadius:4,borderWidth:0,yAxisID:'y1'},
+        {label:'🇷🇴 Romania',data:[148596,155251,RAW[2026].total],backgroundColor:['#8a582888','#8a5828','#8a5828cc'],borderRadius:4,borderWidth:0,yAxisID:'y1'},
       ]
     },
     options:{responsive:true,maintainAspectRatio:false,
