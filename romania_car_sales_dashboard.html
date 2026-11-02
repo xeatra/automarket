@@ -334,17 +334,30 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 .de-mini-track{flex:1;background:var(--surface2);border-radius:2px;height:5px;overflow:hidden;min-width:40px}
 .de-mini-fill{height:100%;border-radius:2px}
 
+
+/* ── MOTO MODE ── */
+.mtab{padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;border-radius:6px 6px 0 0;color:var(--text2);background:transparent;border:none;font-family:var(--font-sans);margin-bottom:-1px;border-bottom:2px solid transparent}
+.mtab.active{color:var(--text);border-bottom-color:var(--text)}
+.mtabpanel{display:none}
+.mtabpanel.active{display:block}
 </style>
 </head>
 <body>
 
 
 <div class="hdr">
-  <h1>Romania New Car Registrations</h1>
-  <div class="sub">Top 50 brands · 2023 · 2024 · 2025 · Jan–Oct 2026 vs 2025</div>
+  <h1 id="appTitle">Romania New Car Registrations</h1>
+  <div class="sub" id="appSub">Top 50 brands · 2023 · 2024 · 2025 · Jan–Oct 2026 vs 2025</div>
 </div>
 
 <div class="ctrl">
+  <div class="cg">
+    <label>Market</label>
+    <div class="pg" id="modePills">
+      <button class="pill active" data-mode="car">🚗 Car</button>
+      <button class="pill" data-mode="moto">🏍 Moto</button>
+    </div>
+  </div>
   <div class="cg">
     <label>Period</label>
     <div class="pg" id="yearPills">
@@ -374,7 +387,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 
 <!-- GROUP & ORIGIN FILTER BAR -->
 <div class="ctrl" id="filterBar2" style="background:var(--surface2);padding:8px 28px;gap:10px;flex-wrap:wrap">
-  <div class="cg">
+  <div class="cg" id="groupCg">
     <label style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Group</label>
     <div class="pg" id="groupPills">
       <button class="pill active" data-group="all">All</button>
@@ -388,6 +401,12 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
   </div>
   <div class="cg">
     <label style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Origin</label>
+    <div class="pg" id="originPillsMoto" style="display:none">
+      <button class="pill active" data-morigin="all">All</button>
+      <button class="pill" data-morigin="Japanese">Japanese</button>
+      <button class="pill" data-morigin="European">European</button>
+      <button class="pill" data-morigin="Other">Other</button>
+    </div>
     <div class="pg" id="originPills">
       <button class="pill active" data-origin="all">All</button>
       <button class="pill" data-origin="German">German</button>
@@ -457,7 +476,49 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
     </div>
   </div>
 
+  <div id="modeNote" style="display:none;font-size:11px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px">🏍 <strong>Moto market:</strong> shares are calculated on the top-25 brands listed each month (other brands are not counted; a brand outside a month's top 25 counts as 0 for that month). Jan–Oct 2026 vs Jan–Oct 2025.</div>
   <div class="krow" id="kpiRow"></div>
+
+  <!-- MOTO brand detail panel -->
+  <div class="detail-panel" id="detailPanelMoto" style="display:none">
+    <div class="dp-header">
+      <div class="dp-seg" id="mpSeg"></div>
+      <div><div class="dp-name" id="mpName"></div><div class="dp-sub" id="mpSub"></div></div>
+      <button class="dp-close" id="mpClose">✕ Close</button>
+    </div>
+    <div class="dp-krow" id="mpKrow"></div>
+    <div class="tabs">
+      <button class="mtab active" data-mtab="month">Monthly 2026 vs 2025</button>
+      <button class="mtab" data-mtab="trend">20-month trend</button>
+      <button class="mtab" data-mtab="comp">Direct competitors</button>
+    </div>
+    <div class="mtabpanel active" id="mtab-month">
+      <div class="dp-g2">
+        <div><div class="ctitle">Monthly units: 2025 vs 2026</div><div style="position:relative;height:240px"><canvas id="mpBarChart" role="img" aria-label="Monthly units 2025 vs 2026"></canvas></div></div>
+        <div><div class="ctitle">Monthly detail</div><div style="overflow-x:auto"><table class="dp-table" id="mpTable"></table></div></div>
+      </div>
+    </div>
+    <div class="mtabpanel" id="mtab-trend">
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2)">Brands shown</span>
+          <button id="mtSelectAll" class="cust-btn cust-btn-secondary" style="padding:3px 10px;font-size:11px">Select all</button>
+          <button id="mtClearAll" class="cust-btn cust-btn-secondary" style="padding:3px 10px;font-size:11px">Clear all</button>
+          <span id="mtCount" style="font-size:11px;color:var(--text3)"></span>
+        </div>
+        <div id="mtChips" style="display:flex;flex-wrap:wrap;gap:5px;max-height:120px;overflow-y:auto;padding:4px 0"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div><div class="ctitle">Monthly units — Jan 2025 → Oct 2026</div><div style="position:relative;height:280px"><canvas id="mtVolChart" role="img" aria-label="Monthly units trend"></canvas></div></div>
+        <div><div class="ctitle">Monthly share of top-25 total (%)</div><div style="position:relative;height:280px"><canvas id="mtShareChart" role="img" aria-label="Monthly share trend"></canvas></div></div>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:var(--text3)">2025 months come from the prior-year column of each 2026 report (brands listed in that month's current top 25 only) · share = brand ÷ that month's top-25 total</div>
+    </div>
+    <div class="mtabpanel" id="mtab-comp">
+      <div class="ctitle" id="mpRivalsTitle"></div>
+      <div class="comp-grid" id="mpComp"></div>
+    </div>
+  </div>
 
   <!-- brand detail panel -->
   <div class="detail-panel" id="detailPanel">
@@ -525,7 +586,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 
   <!-- main ranking -->
   <div class="card">
-    <div class="ctitle">Top 50 brands <span id="rankSub"></span></div>
+    <div class="ctitle" id="rankTitle">Top 50 brands <span id="rankSub"></span></div>
     <div class="rcount" id="rcount"></div>
     <div class="blist-wrap">
       <div id="blistHeader" class="blist-header"></div>
@@ -540,13 +601,13 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
       <div class="cw"><canvas id="donutChart" role="img" aria-label="Donut chart market share by segment"></canvas></div>
     </div>
     <div class="card">
-      <div class="ctitle">YoY trend — top 10 brands (2023 → 2025)</div>
+      <div class="ctitle" id="trendTitle">YoY trend — top 10 brands (2023 → 2025)</div>
       <div class="cwt"><canvas id="trendChart" role="img" aria-label="Year over year trend top 10 brands"></canvas></div>
     </div>
   </div>
 
   <div class="card">
-    <div class="ctitle">3-year mini trend per brand <span>2023 · 2024 · 2025 — click any row to see brand details</span></div>
+    <div class="ctitle" id="miniTitle">3-year mini trend per brand <span>2023 · 2024 · 2025 — click any row to see brand details</span></div>
     <div class="tgrid" id="trendGrid"></div>
   </div>
 </div>
@@ -571,7 +632,7 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--text);font-si
 </script>
 <script>
 // ── RAW DATA ────────────────────────────────────────────────────────────────
-const RAW = {
+let RAW = {
   2023:{total:142783,brands:[
     {b:'DACIA',u:45947,cat:'Mainstream'},{b:'SKODA',u:10557,cat:'Mainstream'},{b:'TOYOTA',u:10529,cat:'Mainstream'},
     {b:'RENAULT',u:10301,cat:'Mainstream'},{b:'VOLKSWAGEN',u:9696,cat:'Mainstream'},{b:'HYUNDAI',u:8978,cat:'Mainstream'},
@@ -707,7 +768,7 @@ const JM25={total:53515,brands:[
   {b:'ASTON MARTIN',u:10},{b:'LYNK&CO',u:21},{b:'BYD',u:4},{b:'CHERY',u:0},
 ]};;
 
-const JUL25_YTD={total:120244,brands:[
+let JUL25_YTD={total:120244,brands:[
   {b:'DACIA',u:34441},
   {b:'TOYOTA',u:11577},
   {b:'SKODA',u:9154},
@@ -851,7 +912,7 @@ const CAT={
 };
 
 // period metadata
-const PERIOD_META={
+let PERIOD_META={
   2023:{total:142783,label:'2023',hasPrev:false,prevLabel:null},
   2024:{total:148596,label:'2024',hasPrev:true, prevLabel:'2023',prevTotal:142783,prevSrc:2023},
   2025:{total:155251,label:'2025',hasPrev:true, prevLabel:'2024',prevTotal:148596,prevSrc:2024},
@@ -874,7 +935,7 @@ function brandCat(b){
 }
 
 // Build top 35 ranked by 2025
-const TOP35=[...RAW[2025].brands].sort((a,b)=>b.u-a.u).slice(0,50).map(d=>d.b);
+let TOP35=[...RAW[2025].brands].sort((a,b)=>b.u-a.u).slice(0,50).map(d=>d.b);
 
 // Auto competitor: same category, closest volume in 2025, excluding self
 function getCompetitors(brand,n=5){
@@ -1053,7 +1114,7 @@ function renderDonut(){
 }
 
 // ── TREND LINE ────────────────────────────────────────────────────────────────
-function renderTrend(){
+function renderTrendCar(){
   const top10=TOP35.slice(0,10);
   const pal=['#1a4d8f','#5a3b8c','#8a5828','#1a6b3a','#c0392b','#2472a4','#7d3c98','#d68910','#0e7c67','#784212'];
   if(trendInst)trendInst.destroy();
@@ -1073,7 +1134,7 @@ function renderTrend(){
 }
 
 // ── MINI TRENDS ───────────────────────────────────────────────────────────────
-function renderMiniTrends(){
+function renderMiniTrendsCar(){
   let brands=TOP35.map(b=>({b,cat:brandCat(b)}));
   if(state.cat!=='all')brands=brands.filter(d=>d.cat===state.cat);
   if(state.search){const s=state.search.toLowerCase();brands=brands.filter(d=>d.b.toLowerCase().includes(s));}
@@ -1103,7 +1164,7 @@ function renderMiniTrends(){
 }
 
 // ── BRAND DETAIL ──────────────────────────────────────────────────────────────
-function openBrand(brand){
+function openBrandCar(brand){
   state.selected=brand;
   renderBarList();renderMiniTrends();
 
@@ -1272,14 +1333,14 @@ const _baseRender = render;
 render();
 
 // ── CUSTOMER ANALYSIS ────────────────────────────────────────────────────────
-const ALL_BRANDS_LIST = [...new Set([
+let ALL_BRANDS_LIST = [...new Set([
   ...RAW[2023].brands.map(d=>d.b),
   ...RAW[2024].brands.map(d=>d.b),
   ...RAW[2025].brands.map(d=>d.b),
   ...RAW[2026].brands.map(d=>d.b),
 ])].sort();
 
-const CUST_PERIODS = [
+let CUST_PERIODS = [
   {key:'2023', label:'2023',    mktTotal:142783, src:2023},
   {key:'2024', label:'2024',    mktTotal:148596, src:2024},
   {key:'2025', label:'2025',    mktTotal:155251, src:2025},
@@ -1687,7 +1748,7 @@ function renderCustAnalysis(body){
 
 
 // ── BRAND GROUPS & ORIGINS ────────────────────────────────────────────────────
-const BRAND_GROUPS = {
+let BRAND_GROUPS = {
   'Volkswagen Group': ['VOLKSWAGEN','SKODA','AUDI','SEAT','CUPRA','PORSCHE'],
   'Toyota Group':     ['TOYOTA','LEXUS'],
   'Stellantis':       ['CITROEN','PEUGEOT','OPEL','DS','LEAPMOTOR','JEEP','FIAT','ALFA ROMEO'],
@@ -1695,7 +1756,7 @@ const BRAND_GROUPS = {
   'Hyundai-Kia':      ['HYUNDAI','KIA'],
   'Geely Group':      ['GEELY','VOLVO'],
 };
-const BRAND_ORIGINS = {
+let BRAND_ORIGINS = {
   'German':   ['AUDI','BMW','MERCEDES-BENZ','VOLKSWAGEN','PORSCHE','SKODA','MINI','OPEL','SEAT','CUPRA'],
   'Chinese':  ['BYD','CHERY','MG','GEELY','VOLVO','LYNK&CO','LEAPMOTOR','OMODA','JAECOO','ZEEKR'],
   'American': ['FORD','TESLA','JEEP'],
@@ -1802,7 +1863,7 @@ function closeIntelPanel(){
 document.getElementById('openIntelligence').addEventListener('click', openIntelPanel);
 document.getElementById('intelClose').addEventListener('click', closeIntelPanel);
 
-function renderIntelPanel(){
+function renderIntelPanelBase(){
   const pm = PERIOD_META[state.year];
   const curSrc = state.year===2026 ? RAW[2026].brands : RAW[state.year].brands;
   const curTotal = pm.total;
@@ -1841,7 +1902,7 @@ function renderIntelPanel(){
   }).sort((a,b)=>b.units-a.units);
 
   // ── Origin totals ──
-  const orderedOrigins=['German','Japanese','Korean','Chinese','French','American','Italian','British','Stellantis'];
+  const orderedOrigins=state.mode==='moto'?Object.keys(BRAND_ORIGINS):['German','Japanese','Korean','Chinese','French','American','Italian','British','Stellantis'];
   const assigned = new Set();
   const originTotals = orderedOrigins.map(o=>{
     const brands = BRAND_ORIGINS[o]||[];
@@ -2984,6 +3045,306 @@ function drawDeAugTab(){
 // Wire Germany tab render into EU tab click
 document.querySelectorAll('.eu-tab[data-eutab="germany"]').forEach(t=>{
   t.addEventListener('click',()=>{ setTimeout(renderGermanyTab,50); });
+});
+
+
+// ── MOTO DATA ──
+const MOTO_DATA={totals:[1063, 1320, 1658, 1442, 1629, 1838, 2026, 1654, 1944, 1532],prevTotals:[549, 588, 796, 1026, 1277, 1223, 1663, 1486, 1406, 1170],brands:{
+  "CF MOTO":{c:[268, 389, 528, 365, 462, 462, 521, 413, 508, 399],p:[218, 237, 277, 258, 324, 321, 457, 423, 407, 310]},
+  "HONDA":{c:[175, 225, 282, 196, 221, 324, 428, 247, 328, 216],p:[34, 55, 104, 194, 199, 176, 242, 209, 264, 252]},
+  "YAMAHA":{c:[71, 85, 136, 127, 129, 169, 177, 176, 187, 143],p:[61, 42, 69, 89, 105, 160, 194, 219, 153, 100]},
+  "BMW":{c:[45, 27, 43, 107, 110, 128, 117, 85, 71, 56],p:[50, 50, 51, 85, 132, 102, 119, 92, 87, 62]},
+  "PIAGGIO":{c:[47, 55, 100, 82, 58, 122, 74, 62, 80, 66],p:[27, 22, 26, 60, 39, 40, 56, 34, 65, 45]},
+  "KYMCO":{c:[34, 53, 89, 70, 78, 65, 91, 82, 77, 49],p:[7, 5, 10, 36, 119, 58, 47, 65, 35, 19]},
+  "KAWASAKI":{c:[28, 48, 50, 52, 82, 91, 76, 87, 87, 55],p:[14, 33, 40, 47, 52, 80, 85, 66, 70, 50]},
+  "SYM":{c:[28, 55, 30, 73, 100, 56, 66, 66, 54, 106],p:[10, 19, 31, 60, 30, 38, 55, 55, 48, 66]},
+  "VOGE":{c:[56, 48, 52, 27, 46, 42, 38, 44, 60, 60],p:[0, 1, 1, 4, 1, 12, 47, 38, 51, 45]},
+  "KTM":{c:[35, 46, 56, 32, 43, 50, 56, 29, 41, 36],p:[22, 18, 47, 49, 38, 38, 58, 36, 40, 39]},
+  "ALLVIEW":{c:[50, 38, 26, 37, 44, 26, 21, 0, 83, 77],p:[44, 33, 7, 7, 3, 2, 4, 0, 37, 29]},
+  "DAYTONA MOTORS":{c:[72, 53, 41, 50, 33, 22, 25, 21, 24, 28],p:[7, 14, 6, 29, 66, 47, 84, 52, 19, 33]},
+  "APRILIA":{c:[22, 41, 37, 22, 30, 31, 48, 26, 39, 24],p:[20, 15, 19, 22, 19, 28, 37, 42, 36, 36]},
+  "SUZUKI":{c:[9, 21, 29, 31, 24, 33, 33, 40, 50, 39],p:[6, 12, 22, 17, 31, 28, 26, 27, 17, 25]},
+  "ROYAL ENFIELD":{c:[18, 16, 30, 28, 28, 32, 18, 13, 0, 19],p:[11, 7, 12, 17, 19, 9, 17, 18, 0, 9]},
+  "TRIUMPH":{c:[17, 14, 21, 18, 24, 0, 28, 21, 27, 19],p:[2, 4, 9, 17, 22, 0, 28, 22, 30, 23]},
+  "LINHAI":{c:[0, 0, 9, 0, 0, 22, 45, 40, 42, 17],p:[0, 0, 6, 0, 0, 14, 17, 17, 14, 9]},
+  "APEC":{c:[0, 0, 24, 0, 19, 13, 0, 53, 27, 0],p:[0, 0, 21, 0, 17, 15, 0, 19, 2, 0]},
+  "ZNEN":{c:[0, 12, 13, 24, 0, 0, 0, 37, 25, 13],p:[0, 0, 0, 1, 0, 0, 0, 12, 11, 4]},
+  "ZONTES":{c:[0, 0, 0, 10, 19, 16, 0, 17, 27, 9],p:[0, 0, 0, 0, 0, 0, 0, 1, 1, 0]},
+  "RDB":{c:[0, 0, 0, 19, 10, 32, 29, 0, 0, 0],p:[0, 0, 0, 0, 25, 9, 20, 0, 0, 0]},
+  "INDIAN MOTORCYCLE":{c:[8, 6, 9, 14, 12, 14, 19, 0, 0, 0],p:[4, 3, 6, 3, 14, 10, 8, 0, 0, 0]},
+  "BENELLI":{c:[0, 0, 0, 0, 0, 0, 22, 15, 17, 21],p:[0, 0, 0, 0, 0, 0, 14, 13, 15, 10]},
+  "GOES":{c:[0, 16, 0, 0, 0, 14, 14, 14, 15, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "BENDA":{c:[0, 0, 0, 0, 0, 14, 0, 16, 16, 9],p:[0, 0, 0, 0, 0, 5, 0, 4, 4, 1]},
+  "VMOTO":{c:[10, 10, 0, 0, 0, 0, 23, 0, 0, 11],p:[0, 2, 0, 0, 0, 0, 0, 0, 0, 3]},
+  "RELIVE":{c:[9, 17, 13, 0, 13, 0, 0, 0, 0, 0],p:[2, 6, 3, 0, 3, 0, 0, 0, 0, 0]},
+  "SEGWAY":{c:[0, 0, 0, 18, 11, 0, 21, 0, 0, 0],p:[0, 0, 0, 24, 17, 0, 37, 0, 0, 0]},
+  "BRP":{c:[0, 0, 9, 0, 0, 22, 0, 18, 0, 0],p:[0, 0, 7, 0, 0, 22, 0, 22, 0, 0]},
+  "LINKTOUR":{c:[0, 0, 0, 0, 11, 0, 0, 0, 15, 14],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "DUCATI":{c:[0, 0, 11, 10, 0, 0, 15, 0, 0, 0],p:[0, 0, 10, 7, 0, 0, 11, 0, 0, 0]},
+  "REVOLT":{c:[0, 0, 0, 0, 0, 26, 0, 0, 0, 10],p:[0, 0, 0, 0, 0, 3, 0, 0, 0, 0]},
+  "OXWIN":{c:[0, 0, 0, 0, 0, 0, 0, 0, 0, 36],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "QJMOTOR":{c:[0, 0, 0, 0, 0, 0, 0, 13, 21, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "S.E.P.":{c:[24, 0, 0, 9, 0, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "XEV YOYO":{c:[13, 6, 0, 0, 10, 0, 0, 0, 0, 0],p:[5, 2, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "HUSQVARNA":{c:[0, 13, 11, 0, 0, 0, 0, 0, 0, 0],p:[0, 5, 12, 0, 0, 0, 0, 0, 0, 0]},
+  "BENTU":{c:[0, 0, 0, 0, 0, 0, 0, 0, 23, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "JYMOTO":{c:[0, 0, 0, 0, 0, 0, 21, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "TALARIA":{c:[7, 12, 0, 0, 0, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "JIAJUE":{c:[0, 0, 0, 0, 0, 0, 0, 19, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "RIEJU":{c:[0, 0, 9, 9, 0, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "KEEWAY":{c:[0, 14, 0, 0, 0, 0, 0, 0, 0, 0],p:[0, 3, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "VOLTA":{c:[0, 0, 0, 12, 0, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "SHERCO":{c:[0, 0, 0, 0, 12, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 2, 0, 0, 0, 0, 0]},
+  "HARLEY-DAVIDSON":{c:[0, 0, 0, 0, 0, 12, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 6, 0, 0, 0, 0]},
+  "SUPER SOCO":{c:[7, 0, 0, 0, 0, 0, 0, 0, 0, 0],p:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "SURRON":{c:[5, 0, 0, 0, 0, 0, 0, 0, 0, 0],p:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  "XEV":{c:[5, 0, 0, 0, 0, 0, 0, 0, 0, 0],p:[4, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+}};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOTO MODE — separate dataset, same layout (Car | Moto switch)
+// ═══════════════════════════════════════════════════════════════════════════
+const MOTO_MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+const _sum=a=>a.reduce((x,y)=>x+y,0);
+const MOTO_PREMIUM=['BMW','KTM','HUSQVARNA','TRIUMPH','APRILIA','INDIAN MOTORCYCLE'];
+const MOTO_LUXURY=['DUCATI','HARLEY-DAVIDSON'];
+const MOTO_JP=['HONDA','YAMAHA','KAWASAKI','SUZUKI'];
+const MOTO_EU=['BMW','KTM','HUSQVARNA','PIAGGIO','APRILIA','TRIUMPH','DUCATI','RIEJU','SHERCO','ALLVIEW'];
+function motoCat(b){return MOTO_LUXURY.includes(b)?'Luxury':MOTO_PREMIUM.includes(b)?'Premium':'Mainstream';}
+function motoOrigin(b){return MOTO_JP.includes(b)?'Japanese':MOTO_EU.includes(b)?'European':'Other';}
+
+const MOTO_BRANDS=Object.keys(MOTO_DATA.brands);
+const MOTO_YTD26=_sum(MOTO_DATA.totals), MOTO_YTD25=_sum(MOTO_DATA.prevTotals);
+const MOTO_STORE={
+  RAW:{
+    2023:{total:0,brands:[]},2024:{total:0,brands:[]},2025:{total:0,brands:[]},
+    2026:{total:MOTO_YTD26,brands:MOTO_BRANDS.map(b=>({b,u:_sum(MOTO_DATA.brands[b].c),cat:motoCat(b)})).filter(d=>d.u>0).sort((a,b)=>b.u-a.u)}
+  },
+  JUL25_YTD:{total:MOTO_YTD25,brands:MOTO_BRANDS.map(b=>({b,u:_sum(MOTO_DATA.brands[b].p)})).filter(d=>d.u>0).sort((a,b)=>b.u-a.u)},
+  PERIOD_META:{2026:{total:MOTO_YTD26,label:'Jan–Oct 2026',hasPrev:true,prevLabel:'Jan–Oct 2025',prevTotal:MOTO_YTD25,prevSrc:'jul25'}},
+  TOP35:[],
+  BRAND_ORIGINS:{Japanese:MOTO_JP,European:MOTO_EU,Other:MOTO_BRANDS.filter(b=>!MOTO_JP.includes(b)&&!MOTO_EU.includes(b))},
+  BRAND_GROUPS:{},
+  ALL_BRANDS_LIST:[...MOTO_BRANDS].sort(),
+  CUST_PERIODS:[
+    {key:'2025',label:'Jan–Oct 2025',mktTotal:MOTO_YTD25,src:'jul25'},
+    {key:'ytd', label:'Jan–Oct 2026',mktTotal:MOTO_YTD26,src:2026},
+  ],
+};
+const CAR_STORE={RAW,JUL25_YTD,PERIOD_META,TOP35,BRAND_ORIGINS,BRAND_GROUPS,ALL_BRANDS_LIST,CUST_PERIODS};
+state.mode='car';
+const _ORIG={
+  title:document.title,
+  h1:document.getElementById('appTitle').textContent,
+  sub:document.getElementById('appSub').textContent,
+  rank:document.getElementById('rankTitle').childNodes[0].nodeValue,
+  trend:document.getElementById('trendTitle').textContent,
+  mini:document.getElementById('miniTitle').innerHTML,
+};
+
+// ── wrappers: dispatch to Car or Moto implementation ─────────────────────────
+function renderTrend(){ return state.mode==='moto'?renderTrendMoto():renderTrendCar(); }
+function renderMiniTrends(){ return state.mode==='moto'?renderMiniTrendsMoto():renderMiniTrendsCar(); }
+function openBrand(brand){ return state.mode==='moto'?openBrandMoto(brand):openBrandCar(brand); }
+function renderIntelPanel(){
+  renderIntelPanelBase();
+  if(state.mode==='moto'){
+    document.querySelectorAll('#intelBody .intel-section-title').forEach(t=>{
+      if(/automotive group|Group breakdown/.test(t.textContent)) t.parentElement.style.display='none';
+    });
+  }
+}
+
+// ── mode switch ──────────────────────────────────────────────────────────────
+function setMode(mode){
+  if(mode===state.mode) return;
+  document.getElementById('detailPanel').classList.remove('open');
+  document.getElementById('detailPanelMoto').style.display='none';
+  document.getElementById('intelOverlay').style.display='none';
+  document.getElementById('euOverlay').classList.remove('open');
+  document.getElementById('custOverlay').classList.remove('open');
+  state.mode=mode;
+  const M=mode==='moto', S=M?MOTO_STORE:CAR_STORE;
+  RAW=S.RAW; JUL25_YTD=S.JUL25_YTD; PERIOD_META=S.PERIOD_META; TOP35=S.TOP35;
+  BRAND_ORIGINS=S.BRAND_ORIGINS; BRAND_GROUPS=S.BRAND_GROUPS;
+  ALL_BRANDS_LIST=S.ALL_BRANDS_LIST; CUST_PERIODS=S.CUST_PERIODS;
+  state.cat='all'; state.search=''; state.group='all'; state.origin='all'; state.selected=null;
+  state.year=M?2026:2025;
+
+  document.querySelectorAll('#modePills .pill').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('#yearPills .pill').forEach(b=>{
+    b.style.display=(M&&b.dataset.year!=='2026')?'none':'';
+    b.classList.toggle('active',parseInt(b.dataset.year)===state.year);
+  });
+  document.querySelectorAll('#catPills .pill').forEach(b=>b.classList.toggle('active',b.dataset.cat==='all'));
+  document.querySelector('#catPills [data-cat="Ultra-Luxury"]').style.display=M?'none':'';
+  document.getElementById('groupCg').style.display=M?'none':'';
+  document.getElementById('originPills').style.display=M?'none':'';
+  document.getElementById('originPillsMoto').style.display=M?'':'none';
+  document.querySelectorAll('#originPills .pill, #originPillsMoto .pill').forEach(b=>{
+    b.classList.toggle('active',(b.dataset.origin||b.dataset.morigin)==='all');
+  });
+  document.querySelectorAll('#groupPills .pill').forEach(b=>b.classList.toggle('active',b.dataset.group==='all'));
+  document.getElementById('openEurope').style.display=M?'none':'';
+  document.getElementById('si').value='';
+
+  document.title=M?'Romania Motorcycle Registrations 2025–2026':_ORIG.title;
+  document.getElementById('appTitle').textContent=M?'Romania New Motorcycle Registrations':_ORIG.h1;
+  document.getElementById('appSub').textContent=M?'Top 25 brands per month · Jan–Oct 2026 vs Jan–Oct 2025':_ORIG.sub;
+  document.getElementById('rankTitle').childNodes[0].nodeValue=M?'Brands (top 25 each month) ':_ORIG.rank;
+  document.getElementById('trendTitle').textContent=M?'Monthly units — top 8 brands (Jan–Oct 2026)':_ORIG.trend;
+  document.getElementById('miniTitle').innerHTML=M?'Jan–Oct 2025 vs 2026 per brand <span>click any row to see brand details</span>':_ORIG.mini;
+  const note=document.getElementById('modeNote');
+  note.style.display=M?'block':'none';
+  render();
+}
+document.querySelectorAll('#modePills .pill').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.querySelectorAll('#originPillsMoto .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#originPillsMoto .pill').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.origin=btn.dataset.morigin; state.group='all';
+    render();
+  });
+});
+
+// ── moto: top-8 monthly lines + mini bars ────────────────────────────────────
+function renderTrendMoto(){
+  const top=MOTO_STORE.RAW[2026].brands.slice(0,8);
+  const pal=['#1a4d8f','#c0392b','#8a5828','#1a6b3a','#5a3b8c','#2472a4','#d68910','#0e7c67'];
+  if(trendInst)trendInst.destroy();
+  trendInst=new Chart(document.getElementById('trendChart'),{
+    type:'line',
+    data:{labels:MOTO_MONTHS,datasets:top.map((d,i)=>({label:d.b,data:MOTO_DATA.brands[d.b].c,borderColor:pal[i],backgroundColor:pal[i]+'22',borderWidth:2,pointRadius:3,tension:.3,fill:false}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},padding:6,boxWidth:8,boxHeight:8}}},
+      scales:{y:{beginAtZero:true,ticks:{font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
+  });
+}
+function renderMiniTrendsMoto(){
+  const rows=getFiltered();
+  const el=document.getElementById('trendGrid');
+  if(!rows.length){el.innerHTML='<div class="nores">No brands match.</div>';return;}
+  const max=Math.max(...rows.map(d=>Math.max(d.u,getU('jul25',d.b))),1);
+  el.innerHTML=rows.map(d=>{
+    const p=getU('jul25',d.b), c=CAT[d.cat];
+    const pct=p>0?((d.u-p)/p*100).toFixed(0):null;
+    const dSpan=pct!==null?`<span class="delta ${pct>=0?'up':'down'}" style="font-size:10px;padding:1px 5px;">${pct>=0?'+':''}${pct}%</span>`:'<span class="delta up" style="font-size:10px;padding:1px 5px;">new</span>';
+    const h=v=>Math.max(2,Math.round(v/max*28));
+    return `<div class="trow" onclick="openBrand('${d.b}')">
+      <div>
+        <div style="display:flex;align-items:center;gap:5px"><div class="seg-dot" style="background:${c.fill};width:12px;height:12px;font-size:8px">${c.letter}</div><span style="font-size:12px;font-weight:500">${d.b}</span>${dSpan}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:1px">${p.toLocaleString()} → ${d.u.toLocaleString()}</div>
+      </div>
+      <div class="tbars"><div class="tbw"><div class="tb" style="height:${h(p)}px;background:#a8b8d8"></div><div class="tyl">25</div></div><div class="tbw"><div class="tb" style="height:${h(d.u)}px;background:#1a3d72"></div><div class="tyl">26</div></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── moto: brand detail ───────────────────────────────────────────────────────
+let mpBarInst=null, mtVolInst=null, mtShareInst=null, mtActive=new Set(), mtBrand=null;
+const MT_PAL=['#1a4d8f','#c0392b','#8a5828','#1a6b3a','#5a3b8c','#2472a4','#d68910','#0e7c67','#784212','#2c3e50','#7b241c','#196f3d'];
+function motoRank(list,b){const i=list.findIndex(d=>d.b===b);return i>=0?i+1:null;}
+function motoCompetitors(b,n=5){
+  const cat=motoCat(b), u=_sum(MOTO_DATA.brands[b].c);
+  return MOTO_STORE.RAW[2026].brands.filter(d=>d.cat===cat&&d.b!==b).sort((a,c)=>Math.abs(a.u-u)-Math.abs(c.u-u)).slice(0,n).map(d=>d.b);
+}
+function openBrandMoto(brand){
+  const d=MOTO_DATA.brands[brand]; if(!d) return;
+  state.selected=brand; renderBarList(); renderMiniTrends();
+  const panel=document.getElementById('detailPanelMoto');
+  panel.style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+  const cat=motoCat(brand), c=CAT[cat];
+  document.getElementById('mpSeg').style.background=c.fill;
+  document.getElementById('mpSeg').textContent=c.letter;
+  document.getElementById('mpName').textContent=brand;
+  document.getElementById('mpSub').textContent=cat+' segment · '+motoOrigin(brand)+' origin';
+  const y26=_sum(d.c), y25=_sum(d.p);
+  const r26=motoRank(MOTO_STORE.RAW[2026].brands,brand), r25=motoRank(MOTO_STORE.JUL25_YTD.brands,brand);
+  const chg=y25>0?((y26-y25)/y25*100):null;
+  const s26=(y26/MOTO_YTD26*100).toFixed(2), s25=(y25/MOTO_YTD25*100).toFixed(2);
+  document.getElementById('mpKrow').innerHTML=`
+    <div class="kpi"><div class="kpi-lbl">Jan–Oct 2026</div><div class="kpi-val">${y26.toLocaleString()}</div><div class="kpi-sub">${s26}% share</div></div>
+    <div class="kpi"><div class="kpi-lbl">Jan–Oct 2025</div><div class="kpi-val">${y25.toLocaleString()}</div><div class="kpi-sub">${s25}% share</div></div>
+    <div class="kpi"><div class="kpi-lbl">Change</div><div class="kpi-val" style="font-size:16px">${chg!==null?(chg>=0?'+':'')+chg.toFixed(1)+'%':'new'}</div><div class="kpi-sub">${(y26-y25>=0?'+':'')+(y26-y25).toLocaleString()} units</div></div>
+    <div class="kpi"><div class="kpi-lbl">Rank</div><div class="kpi-val" style="font-size:16px">#${r26||'—'}</div><div class="kpi-sub">was #${r25||'—'} (same period 2025)</div></div>`;
+  // monthly table
+  const rows=MOTO_MONTHS.map((m,i)=>{
+    const cu=d.c[i], pr=d.p[i];
+    const ch=pr>0?((cu-pr)/pr*100):null;
+    const chHtml=ch!==null?`<span class="delta ${ch>=0?'up':'down'}">${ch>=0?'+':''}${ch.toFixed(0)}%</span>`:(cu>0?'<span class="delta up">new</span>':'—');
+    const sh=MOTO_DATA.totals[i]>0?(cu/MOTO_DATA.totals[i]*100).toFixed(2)+'%':'—';
+    return `<tr><td>${m}</td><td>${pr.toLocaleString()}</td><td>${cu.toLocaleString()}</td><td>${chHtml}</td><td>${sh}</td></tr>`;
+  }).join('');
+  document.getElementById('mpTable').innerHTML=`<thead><tr><th>Month</th><th>2025</th><th>2026</th><th>Change</th><th>2026 share</th></tr></thead><tbody>${rows}<tr class="hl"><td>Jan–Oct</td><td>${y25.toLocaleString()}</td><td>${y26.toLocaleString()}</td><td>${chg!==null?`<span class="delta ${chg>=0?'up':'down'}">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`:'—'}</td><td>${s26}%</td></tr></tbody>`;
+  // competitors
+  const rivals=motoCompetitors(brand,5);
+  document.getElementById('mpRivalsTitle').textContent=`Direct competitors (${cat}) — closest by Jan–Oct 2026 units`;
+  document.getElementById('mpComp').innerHTML=rivals.length?rivals.map(rb=>{
+    const rc=CAT[motoCat(rb)], ru=_sum(MOTO_DATA.brands[rb].c), rp=_sum(MOTO_DATA.brands[rb].p);
+    const rd=rp>0?((ru-rp)/rp*100).toFixed(0):null;
+    return `<div class="comp-card" onclick="openBrand('${rb}')">
+      <div class="cc-top"><div class="seg-dot" style="background:${rc.fill};width:14px;height:14px;font-size:8px">${rc.letter}</div><div class="cc-name">${rb}</div></div>
+      <div class="cc-units">${ru.toLocaleString()}</div>
+      <div class="cc-share">${(ru/MOTO_YTD26*100).toFixed(2)}% share Jan–Oct 2026</div>
+      ${rd!==null?`<div class="cc-delta delta ${rd>=0?'up':'down'}">${rd>=0?'+':''}${rd}% vs 2025</div>`:''}
+    </div>`;}).join(''):'<div class="nores">No other brands in this segment.</div>';
+  mtBrand=brand; mtActive=new Set([brand,...motoCompetitors(brand,4)]);
+  setMotoTab('month');
+}
+function setMotoTab(id){
+  document.querySelectorAll('#detailPanelMoto .mtab').forEach(t=>t.classList.toggle('active',t.dataset.mtab===id));
+  document.querySelectorAll('#detailPanelMoto .mtabpanel').forEach(p=>p.classList.toggle('active',p.id==='mtab-'+id));
+  if(id==='month') setTimeout(drawMotoMonthly,20);
+  if(id==='trend') setTimeout(renderMotoTrend,20);
+}
+function drawMotoMonthly(){
+  const ctx=document.getElementById('mpBarChart'); if(!ctx||!mtBrand) return;
+  const d=MOTO_DATA.brands[mtBrand], c=CAT[motoCat(mtBrand)];
+  if(mpBarInst)mpBarInst.destroy();
+  mpBarInst=new Chart(ctx,{
+    type:'bar',
+    data:{labels:MOTO_MONTHS,datasets:[
+      {label:'2025',data:d.p,backgroundColor:c.fill+'66',borderRadius:3,borderWidth:0},
+      {label:'2026',data:d.c,backgroundColor:c.fill,borderRadius:3,borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}}},
+      scales:{y:{beginAtZero:true,ticks:{font:{size:10}},grid:{color:'rgba(128,128,128,.08)'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
+  });
+}
+function renderMotoTrend(){
+  const chips=document.getElementById('mtChips'); if(!chips||!mtBrand) return;
+  chips.innerHTML=MOTO_BRANDS.slice().sort((a,b)=>_sum(MOTO_DATA.brands[b].c)-_sum(MOTO_DATA.brands[a].c)).map(b=>{
+    const on=mtActive.has(b), c=CAT[motoCat(b)];
+    return `<div class="brand-chip ${on?'selected':''}" data-mt="${b}" style="${on?`background:${c.fill};border-color:${c.fill};color:#fff;`:''}${b===mtBrand?'outline:2px solid var(--border2);outline-offset:1px;':''}font-size:11px;padding:3px 9px">${b}${b===mtBrand?'&nbsp;★':''}</div>`;
+  }).join('');
+  chips.onclick=e=>{const ch=e.target.closest('[data-mt]'); if(!ch) return; const b=ch.dataset.mt; if(mtActive.has(b))mtActive.delete(b); else mtActive.add(b); renderMotoTrend();};
+  document.getElementById('mtCount').textContent=`${mtActive.size} brand${mtActive.size!==1?'s':''} shown`;
+  document.getElementById('mtSelectAll').onclick=()=>{mtActive=new Set(MOTO_BRANDS);renderMotoTrend();};
+  document.getElementById('mtClearAll').onclick=()=>{mtActive=new Set();renderMotoTrend();};
+  const labels=MOTO_MONTHS.map(m=>m+' 25').concat(MOTO_MONTHS.map(m=>m+' 26'));
+  const tots=MOTO_DATA.prevTotals.concat(MOTO_DATA.totals);
+  const active=MOTO_BRANDS.filter(b=>mtActive.has(b));
+  const mk=(sel)=>active.map((b,i)=>{
+    const color=b===mtBrand?CAT[motoCat(b)].fill:MT_PAL[i%MT_PAL.length];
+    const vol=MOTO_DATA.brands[b].p.concat(MOTO_DATA.brands[b].c);
+    return {label:b,data:sel==='vol'?vol:vol.map((u,k)=>tots[k]>0?+(u/tots[k]*100).toFixed(3):0),
+      borderColor:color,backgroundColor:'transparent',borderWidth:b===mtBrand?2.5:1.5,pointRadius:b===mtBrand?3:1,tension:.3,fill:false};
+  });
+  const opts=(fmt)=>({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:active.length<=12,position:'bottom',labels:{font:{size:9},padding:5,boxWidth:8,boxHeight:8}},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{ticks:{font:{size:8},maxRotation:45},grid:{display:false}},y:{beginAtZero:true,ticks:{font:{size:9},callback:fmt},grid:{color:'rgba(128,128,128,.08)'}}}});
+  const vc=document.getElementById('mtVolChart'), sc=document.getElementById('mtShareChart');
+  if(!vc||!sc) return;
+  if(mtVolInst)mtVolInst.destroy(); if(mtShareInst)mtShareInst.destroy();
+  mtVolInst=new Chart(vc,{type:'line',data:{labels,datasets:mk('vol')},options:opts(v=>v)});
+  mtShareInst=new Chart(sc,{type:'line',data:{labels,datasets:mk('share')},options:opts(v=>v.toFixed(1)+'%')});
+}
+document.querySelectorAll('#detailPanelMoto .mtab').forEach(t=>t.addEventListener('click',()=>setMotoTab(t.dataset.mtab)));
+document.getElementById('mpClose').addEventListener('click',()=>{
+  document.getElementById('detailPanelMoto').style.display='none';
+  state.selected=null; renderBarList(); renderMiniTrends();
 });
 
 </script>
